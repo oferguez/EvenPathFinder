@@ -8,8 +8,8 @@
   body { font-family: Arial, sans-serif; text-align: center; background-color: #f0f8ff; }
   #gameBoard { margin: 20px auto; }
   .cell { width: 50px; height: 50px; line-height: 50px; border: 1px solid #333; display: inline-block; cursor: pointer; font-size: 18px; background-color: #fff; color: #000; }
-  .cell.highlight-current { background-color: pink; }
-  .cell.highlight-previous { background-color: lightpurple !important; }
+  .cell.highlight-current { background-color: #FF1493; }
+  .cell.highlight-previous { background-color: #FFB6C1; }
   #messages { margin-top: 20px; font-size: 16px; color: green; }
   #controls { margin-top: 20px; }
   input, button { padding: 10px; margin: 5px; }
@@ -26,6 +26,7 @@
 </div>
 <div id="gameBoard"></div>
 <div id="moveMessages"></div>
+<div id="jokeMessages"></div>
 <div id="factMessages"></div>
 <script>
 // Global variables
@@ -126,15 +127,9 @@ function makeMove(x, y) {
     showFactMessage(`Congratulations! You reached the end in ${movesTaken} moves.`, 'green');
     return;
   }
-  const hamsterJokes = [
-    "Why did the hamster go to the doctor? Because it was feeling a little squirrelly!",
-    "Why did the hamster join a band? To play the drums, of course!",
-    "Why did the hamster go to the gym? To get wheel-toned!",
-    "Why did the hamster become a detective? It wanted to catch a sneaky mouse!",
-    "Why did the hamster go to the beach? To suntan its tiny hamster cheeks!"
-  ];
-  const randomJoke = hamsterJokes[Math.floor(Math.random() * hamsterJokes.length)];
-  showFactMessage(`Very well Shira!! ${randomJoke} Did you know ${board[x][y]} is ${getMathFact(board[x][y])}?`, 'green');
+  showFactMessage(`Very well Shira!! Did you know ${board[x][y]} is ${getMathFact(board[x][y])}?`, 'green');
+  showJokeMessage('#FF00FF');
+
   renderBoard();
 }
 
@@ -161,6 +156,21 @@ function showFactMessage(text, color) {
   factMessages.style.color = color;
   factMessages.textContent = text;
 }
+
+function showJokeMessage(color) {
+  const hamsterJokes = [
+    "Why did the hamster go to the doctor? Because it was feeling a little squirrelly!",
+    "Why did the hamster join a band? To play the drums, of course!",
+    "Why did the hamster go to the gym? To get wheel-toned!",
+    "Why did the hamster become a detective? It wanted to catch a sneaky mouse!",
+    "Why did the hamster go to the beach? To suntan its tiny hamster cheeks!"
+  ];
+  const randomJoke = hamsterJokes[Math.floor(Math.random() * hamsterJokes.length)];
+  const jokeMessages = document.getElementById('jokeMessages');
+  jokeMessages.style.color = color;
+  factMessages.textContent = randomJoke;
+}
+
 
 // New game
 function newGame() {
