@@ -13,6 +13,26 @@
   #messages { margin-top: 20px; font-size: 16px; color: green; }
   #controls { margin-top: 20px; }
   input, button { padding: 10px; margin: 5px; }
+
+  #gameBoard {
+  transition: background-color 0.2s ease-in-out;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-10px); }
+    50% { transform: translateX(10px); }
+    75% { transform: translateX(-10px); }
+  }
+
+  .shake {
+    animation: shake 0.5s ease-in-out;
+  }
+
+  .background-red {
+    background-color: red;
+  }
+
 </style>
 </head>
 <body>
@@ -102,9 +122,10 @@ function renderBoard() {
       }
       gameBoard.appendChild(cell);
     }
-    gameBoard.appendChild(document.createElement('br'));
+    gameBoard.appendChild(document.createElement('br'));  
   }
-  updateMoveMessages();
+
+  showMoveMessages(`Moves taken: ${movesTaken}`,'blue');
 }
 
 // Validate if a move is possible
@@ -125,7 +146,7 @@ function isValidMove(x, y) {
 // Make a move
 function makeMove(x, y) {
   if (!isValidMove(x, y)) {
-    showFactMessage('Oops! That move is not allowed.', 'red');
+    showMoveMessages('Oops! That move is not allowed.', 'red');
     return;
   }
   previousPositions.push(currentPosition.slice());
@@ -135,7 +156,7 @@ function makeMove(x, y) {
     showFactMessage(`Congratulations! You reached the end in ${movesTaken} moves.`, 'green');
     return;
   }
-  showFactMessage(`Very well Shira!! Did you know ${board[x][y]} is ${getMathFact(board[x][y])}?`, 'green');
+  showFactMessage(`Very well Shira!! Did you know ${getMathFact(board[x][y])}?`, 'green');
   showJokeMessage('#FF00FF');
 
   renderBoard();
@@ -152,10 +173,10 @@ function getMathFact(num) {
 }
 
 // Show a message for moves taken
-function updateMoveMessages() {
+function showMoveMessages(text, color) {
   const moveMessages = document.getElementById('moveMessages');
-  moveMessages.style.color = 'blue';
-  moveMessages.textContent = `Moves taken: ${movesTaken}`;
+  moveMessages.style.color = color;
+  moveMessages.textContent = text;
 }
 
 // Show a message for math facts and other notifications
@@ -176,9 +197,31 @@ function showJokeMessage(color) {
   const randomJoke = hamsterJokes[Math.floor(Math.random() * hamsterJokes.length)];
   const jokeMessages = document.getElementById('jokeMessages');
   jokeMessages.style.color = color;
-  factMessages.textContent = randomJoke;
+  jokeMessages.textContent = randomJoke;
 }
 
+function triggerWrongMoveEffect() {
+  const gameBoard = document.getElementById('gameBoard');
+  
+  // Apply shake and background-red class
+  gameBoard.classList.add('shake', 'background-red');
+  
+  // Alternate background color back and forth
+  let flashCount = 0;
+  const flashInterval = setInterval(() => {
+    gameBoard.classList.toggle('background-red');
+    flashCount++;
+
+    if (flashCount >= 4) { // 2 seconds with 4 changes (0.5s each)
+      clearInterval(flashInterval);
+    }
+  }, 500);
+
+  // Remove the shake effect after 0.5s
+  setTimeout(() => {
+    gameBoard.classList.remove('shake');
+  }, 500);
+}
 
 // New game
 function newGame() {
