@@ -12,10 +12,11 @@
   .cell.highlight-previous { background-color: #FFB6C1; }
   #messages { margin-top: 20px; font-size: 16px; color: green; }
   #controls { margin-top: 20px; }
+  
   input, button { padding: 10px; margin: 5px; }
 
   #gameBoard {
-  transition: background-color 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
   }
 
   @keyframes shake {
@@ -27,7 +28,7 @@
   }
 
   .shake {
-    animation: shake 0.1s ease-in-out 5;
+    animation: shake 0.05s ease-in-out 8;
   }
 
   .background-red {
@@ -49,31 +50,33 @@
     font-size: 3rem;
     font-weight: bold;
     color: #ff1493;
-    animation: jump 2s ease-in-out forwards;
+    z-index: 50;
   }
 
   @keyframes jump {
     0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-    50% { transform: translate(-50%, -150%) scale(4); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+    50% { transform: translate(-50%, -150%) scale(3); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
   }
 
   #fireworks {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 300px;
-    height: 300px;
-    background: radial-gradient(circle, rgba(255,215,0,0.8) 10%, transparent 70%);
+    /* top: 50%;
+    left: 50%; */
+    width: 30px;
+    height: 30px;
+    background: radial-gradient(circle, rgba(255,215,0,0.8) 10%, transparent 0%);
     border-radius: 50%;
     transform: scale(0);
-    animation: explode 1s ease-out forwards;
+    z-index: 10;
   }
-
+  
   @keyframes explode {
     0% { transform: scale(0); opacity: 0.8; }
-    50% { transform: scale(1.5); opacity: 1; }
-    100% { transform: scale(2); opacity: 0; }
+    50% { transform: scale(3); opacity: 1; }
+    75% { transform: scale(5); opacity: 1; }
+    90% { transform: scale(6); opacity: 1; }
+    100% { transform: scale(7); opacity: 0; }
   }
 
 
@@ -89,10 +92,10 @@
   <button onclick="resetGame()">Reset Game</button>
 </div>
 <div id="gameBoard"></div>
-<div id="effect">
+<!-- <div id="effect">
   <div id="shira">Well Done Shira!</div>
   <div id="fireworks"></div>
-</div>
+</div> -->
 <div id="moveMessages"></div>
 <div id="jokeMessages"></div>
 <div id="factMessages"></div>
@@ -280,50 +283,105 @@ function showJokeMessage(color = null) {
   jokeMessages.textContent = randomJoke;
 }
 
-function triggerValidMoveEffect() {
-  const shira = document.getElementById('shira');
-  const fireworks = document.getElementById('fireworks');
+function createEffectContainer() {
+  // Create the #effect container
+  const effectContainer = document.createElement('div');
+  effectContainer.id = 'effect';
 
-  // Reset animations
+  effectContainer.style.background.color = 'green';
+
+  // Style the container
+  effectContainer.style.position = 'absolute'; // Position relative to the viewport
+  effectContainer.style.top = '0'; // Align to the top of the screen
+  effectContainer.style.left = '50%'; // Center horizontally
+  effectContainer.style.transform = 'translateX(-50%)'; // Adjust for centering
+  effectContainer.style.width = '75vw'; // 75% of the viewport width
+  effectContainer.style.height = '75vh'; // 75% of the viewport height
+  effectContainer.style.pointerEvents = 'none'; // Ensure it doesn’t block user interactions
+  effectContainer.style.zIndex = '999'; // Ensure it’s on top of other elements
+
+  // Create the #shira element
+  const shira = document.createElement('div');
+  shira.id = 'shira';
+  shira.textContent = 'Well Done Shira!';
+  effectContainer.appendChild(shira);
+
+  // Create the #fireworks element
+  const fireworks_container = document.createElement('div');
+  fireworks_container.id = 'fireworks_container';
+  effectContainer.appendChild(fireworks_container);
+
+  // Append the effect container to the body
+  document.body.appendChild(effectContainer);
+
+  return effectContainer; // Return for further manipulation if needed
+}
+
+function removeEffectContainer() {
+  //return;
+  // Select the #effect container and remove it
+  const effectContainer = document.getElementById('effect');
+  if (effectContainer) {
+    effectContainer.remove();
+  }
+}
+
+function triggerValidMoveEffect() 
+{
+  // Remove any existing effect container
+  removeEffectContainer();
+
+  // Create a new effect container
+  const effectContainer = createEffectContainer();  
+
+  const shira = document.getElementById('shira');
+  const fireworks_container = document.getElementById('fireworks_container');
+ 
   shira.style.animation = 'none';
-  fireworks.style.animation = 'none';
 
   // Force reflow
   shira.offsetHeight; // This triggers a reflow
-  fireworks.offsetHeight;
 
-  // Apply animations again
-  shira.style.animation = 'jump 1.5s ease-in-out forwards';
-  fireworks.style.animation = 'explode 1.5s ease-out forwards';
+  // Generate random number of circles (between 2 and 10)
+  const numFireworks = Math.floor(Math.random() * 9) + 2; // Random number between 2 and 10
 
-  // Reset animations for re-triggering after completion
-  setTimeout(() => {
-    shira.style.animation = '';
-    fireworks.style.animation = '';
-  }, 2500);
+  for (let fw = 0; fw < numFireworks; fw++) {
+    const firework = document.createElement('div');
+    firework.id = 'fireworks';
+    firework.class = 'fireworks';
+
+    // Randomize size (20px to 100px)
+    const size = Math.floor(Math.random() * 80 + 20);
+    firework.style.width = `${size}%`;
+    firework.style.height = `${size}%`;
+
+    // Randomize position within the container
+    const positionX = Math.floor(Math.random() * 100); // Percentage for left position
+    const positionY = Math.floor(Math.random() * 100); // Percentage for top position
+    firework.style.left = `${positionX}%`;
+    firework.style.top = `${positionY}%`;
+
+    fireworks_container.appendChild(firework);
+  }
+
+  shira.style.animation = 'jump 2s ease-in-out forwards';
+  const fireworks = document.querySelectorAll('#fireworks');
+
+  fireworks.forEach((fw) => {
+    fw.style.animation = 'explode 2s ease-out forwards';
+  });
+
+  // Reset animations for re-triggering
+  setTimeout(() => {   
+    removeEffectContainer();
+  }, 2000); // Matches animation duration
 }
 
-// // Example usage: Trigger effect on a valid move
-// document.getElementById('gameBoard').addEventListener('click', triggerValidMoveEffect);
 
 
 function triggerWrongMoveEffect() {
   const gameBoard = document.getElementById('gameBoard');
   gameBoard.classList.add('shake');
-
-  // Apply shake and background-red class
-  //gameBoard.classList.add('shake', 'background-red');
-  
-  // Alternate background color back and forth
-  // let flashCount = 0;
-  // const flashInterval = setInterval(() => {
-  //   gameBoard.classList.toggle('background-red');
-  //   flashCount++;
-
-  //   if (flashCount >= 4) { // 2 seconds with 4 changes (0.5s each)
-  //     clearInterval(flashInterval);
-  //   }
-  // }, 500);
 
   // Remove the shake effect after 0.5s
   setTimeout(() => {
