@@ -34,6 +34,49 @@
     background-color: red;
   }
 
+  #effect {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* Prevent interactions */
+  }
+
+  #shira {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    font-size: 3rem;
+    font-weight: bold;
+    color: #ff1493;
+    animation: jump 2s ease-in-out forwards;
+  }
+
+  @keyframes jump {
+    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+    50% { transform: translate(-50%, -150%) scale(4); opacity: 1; }
+    100% { transform: translate(-50%, -50%) scale(1); opacity: 0; }
+  }
+
+  #fireworks {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(255,215,0,0.8) 10%, transparent 70%);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: explode 1s ease-out forwards;
+  }
+
+  @keyframes explode {
+    0% { transform: scale(0); opacity: 0.8; }
+    50% { transform: scale(1.5); opacity: 1; }
+    100% { transform: scale(2); opacity: 0; }
+  }
+
+
 </style>
 </head>
 <body>
@@ -46,6 +89,10 @@
   <button onclick="resetGame()">Reset Game</button>
 </div>
 <div id="gameBoard"></div>
+<div id="effect">
+  <div id="shira">Well Done Shira!</div>
+  <div id="fireworks"></div>
+</div>
 <div id="moveMessages"></div>
 <div id="jokeMessages"></div>
 <div id="factMessages"></div>
@@ -184,6 +231,9 @@ function makeMove(x, y) {
   showJokeMessage('#FF00FF');
 
   renderBoard();
+  console.log(`makemove: ${x} ${y}`);
+  triggerValidMoveEffect();
+
 }
 
 // Get a simple math fact about a number
@@ -229,6 +279,33 @@ function showJokeMessage(color = null) {
   jokeMessages.style.color = color;
   jokeMessages.textContent = randomJoke;
 }
+
+function triggerValidMoveEffect() {
+  const shira = document.getElementById('shira');
+  const fireworks = document.getElementById('fireworks');
+
+  // Reset animations
+  shira.style.animation = 'none';
+  fireworks.style.animation = 'none';
+
+  // Force reflow
+  shira.offsetHeight; // This triggers a reflow
+  fireworks.offsetHeight;
+
+  // Apply animations again
+  shira.style.animation = 'jump 1.5s ease-in-out forwards';
+  fireworks.style.animation = 'explode 1.5s ease-out forwards';
+
+  // Reset animations for re-triggering after completion
+  setTimeout(() => {
+    shira.style.animation = '';
+    fireworks.style.animation = '';
+  }, 2500);
+}
+
+// // Example usage: Trigger effect on a valid move
+// document.getElementById('gameBoard').addEventListener('click', triggerValidMoveEffect);
+
 
 function triggerWrongMoveEffect() {
   const gameBoard = document.getElementById('gameBoard');
