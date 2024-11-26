@@ -110,6 +110,14 @@ function renderBoard() {
 // Validate if a move is possible
 function isValidMove(x, y) {
   if (x < 0 || x >= boardSize || y < 0 || y >= boardSize) return false;
+
+  // Validate the move (one step horizontally or vertically)
+  const [currentX, currentY] = currentPosition;
+  const deltaX = Math.abs(x - currentX);
+  const deltaY = Math.abs(y - currentY);
+  if (deltaX > 1 || deltaY > 1) || Math.abs(deltaX - deltaY) !== 1)
+    return false;
+
   if (board[x][y] % 2 !== 0) return false;
   return true;
 }
