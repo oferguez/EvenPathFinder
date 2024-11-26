@@ -115,7 +115,7 @@ function isValidMove(x, y) {
   const [currentX, currentY] = currentPosition;
   const deltaX = Math.abs(x - currentX);
   const deltaY = Math.abs(y - currentY);
-  if (deltaX > 1 || deltaY > 1) || Math.abs(deltaX - deltaY) !== 1)
+  if (deltaX > 1 || deltaY > 1 || Math.abs(deltaX - deltaY) !== 1)
     return false;
 
   if (board[x][y] % 2 !== 0) return false;
