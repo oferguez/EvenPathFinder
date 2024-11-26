@@ -19,14 +19,15 @@
   }
 
   @keyframes shake {
-    0%, 100% { transform: translateX(0); }
-    25% { transform: translateX(-10px); }
-    50% { transform: translateX(10px); }
-    75% { transform: translateX(-10px); }
+    0%, 100% { transform: translateX(0); }   
+    20% { transform: translateX(-15px); }
+    40% { transform: translateX(0); }
+    60% { transform: translateX(15px); }
+    80% { transform: translateX(0); }
   }
 
   .shake {
-    animation: shake 0.5s ease-in-out;
+    animation: shake 0.1s ease-in-out 5;
   }
 
   .background-red {
@@ -117,7 +118,8 @@ function renderBoard() {
       } else if (previousPositions.some(pos => pos[0] === i && pos[1] === j)) {
         cell.classList.add('highlight-previous');
       }
-      if (isValidMove(i, j)) {
+      if (isNeighbour(i, j))
+      {
         cell.addEventListener('click', () => makeMove(i, j));
       }
       gameBoard.appendChild(cell);
@@ -128,18 +130,37 @@ function renderBoard() {
   showMoveMessages(`Moves taken: ${movesTaken}`,'blue');
 }
 
-// Validate if a move is possible
-function isValidMove(x, y) {
-  if (x < 0 || x >= boardSize || y < 0 || y >= boardSize) return false;
+function isNeighbour(x, y)
+{
+  if (x < 0 || x >= boardSize || y < 0 || y >= boardSize)
+  {
+    return false;
+  }
 
-  // Validate the move (one step horizontally or vertically)
+  // one step horizontally or vertically
   const [currentX, currentY] = currentPosition;
   const deltaX = Math.abs(x - currentX);
   const deltaY = Math.abs(y - currentY);
   if (deltaX > 1 || deltaY > 1 || Math.abs(deltaX - deltaY) !== 1)
+  {
     return false;
+  }
 
-  if (board[x][y] % 2 !== 0) return false;
+  return true;
+}
+
+// Validate if a move is possible
+function isValidMove(x, y) {
+  if (!isNeighbour(x,y))
+  {
+    return false;
+  }
+
+  if (board[x][y] % 2 !== 0) 
+  {
+    return false;
+  }
+
   return true;
 }
 
@@ -147,6 +168,9 @@ function isValidMove(x, y) {
 function makeMove(x, y) {
   if (!isValidMove(x, y)) {
     showMoveMessages('Oops! That move is not allowed.', 'red');
+    showJokeMessage();
+    showFactMessage(null, null);
+    triggerWrongMoveEffect();
     return;
   }
   previousPositions.push(currentPosition.slice());
@@ -186,7 +210,14 @@ function showFactMessage(text, color) {
   factMessages.textContent = text;
 }
 
-function showJokeMessage(color) {
+function showJokeMessage(color = null) {
+  const jokeMessages = document.getElementById('jokeMessages');
+  if (color === null)
+  {
+    jokeMessages.textContent = null;
+    return;
+  }
+
   const hamsterJokes = [
     "Why did the hamster go to the doctor? Because it was feeling a little squirrelly!",
     "Why did the hamster join a band? To play the drums, of course!",
@@ -195,32 +226,32 @@ function showJokeMessage(color) {
     "Why did the hamster go to the beach? To suntan its tiny hamster cheeks!"
   ];
   const randomJoke = hamsterJokes[Math.floor(Math.random() * hamsterJokes.length)];
-  const jokeMessages = document.getElementById('jokeMessages');
   jokeMessages.style.color = color;
   jokeMessages.textContent = randomJoke;
 }
 
 function triggerWrongMoveEffect() {
   const gameBoard = document.getElementById('gameBoard');
-  
+  gameBoard.classList.add('shake');
+
   // Apply shake and background-red class
-  gameBoard.classList.add('shake', 'background-red');
+  //gameBoard.classList.add('shake', 'background-red');
   
   // Alternate background color back and forth
-  let flashCount = 0;
-  const flashInterval = setInterval(() => {
-    gameBoard.classList.toggle('background-red');
-    flashCount++;
+  // let flashCount = 0;
+  // const flashInterval = setInterval(() => {
+  //   gameBoard.classList.toggle('background-red');
+  //   flashCount++;
 
-    if (flashCount >= 4) { // 2 seconds with 4 changes (0.5s each)
-      clearInterval(flashInterval);
-    }
-  }, 500);
+  //   if (flashCount >= 4) { // 2 seconds with 4 changes (0.5s each)
+  //     clearInterval(flashInterval);
+  //   }
+  // }, 500);
 
   // Remove the shake effect after 0.5s
   setTimeout(() => {
     gameBoard.classList.remove('shake');
-  }, 500);
+  }, 1500);
 }
 
 // New game
