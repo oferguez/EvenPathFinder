@@ -208,7 +208,6 @@ function createEffectContainer() {
   // Create the #shira element
   const shira = document.createElement('div');
   shira.id = 'shira';
-  shira.textContent = 'Well Done Shira!';
   effectContainer.appendChild(shira);
 
   // Create the #fireworks element
@@ -231,22 +230,64 @@ function removeEffectContainer() {
   }
 }
 
+// Array of congratulatory messages
+const congratulations = [
+  "Great job, Shira!",
+  "Well done, Shira!",
+  "Awesome work, Shira!",
+  "You nailed it, Shira!",
+  "Bravo, Shira!",
+  "Fantastic, Shira!",
+  "Keep it up, Shira!",
+  "Amazing effort, Shira!",
+  "Way to go, Shira!",
+  "Impressive, Shira!"
+];
+
+// Function to select a random message
+function getRandomCongratulation() {
+  const randomIndex = Math.floor(Math.random() * congratulations.length);
+  return congratulations[randomIndex];
+}
+
+
+
 function CongratEffect()
 {
   const shira = document.getElementById('shira');
   console.log(`Congrating: shira=${shira}`);
   shira.style.animation = 'none';
   // Force reflow
+  shira.textContent = getRandomCongratulation();
   shira.offsetHeight; // This triggers a reflow
   shira.style.animation = 'jump 2s ease-in-out forwards';
 
+}
+
+// Array of color names
+const colors = [
+  "Red",
+  "Blue",
+  "Green",
+  "Yellow",
+  "Purple",
+  "Orange",
+  "Pink",
+  "Brown",
+  "Cyan",
+  "Magenta"
+];
+
+// Function to select a random color
+function getRandomColor() {
+  const randomIndex = Math.floor(Math.random() * colors.length);
+  return colors[randomIndex];
 }
 
 function FireworksEffect()
 {
   
   const fireworks_container = document.getElementById('fireworks_container');
- 
   
   // Generate random number of circles (between 2 and 10)
   const numFireworks = Math.floor(Math.random() * 9) + 2; // Random number between 2 and 10
@@ -261,12 +302,17 @@ function FireworksEffect()
     firework.style.width = `${size}%`;
     firework.style.height = `${size}%`;
 
+    firework.style.background = `radial-gradient(circle, ${getRandomColor()}) 10%, transparent 0%);`;
+
+    firework.style.color = getRandomColor();
+
     // Randomize position within the container
     const positionX = Math.floor(Math.random() * 100); // Percentage for left position
     const positionY = Math.floor(Math.random() * 100); // Percentage for top position
     firework.style.left = `${positionX}%`;
     firework.style.top = `${positionY}%`;
 
+    console.log(`firework: ${firework}`);
     fireworks_container.appendChild(firework);
   }
 
@@ -278,29 +324,23 @@ function FireworksEffect()
 
 }
 
-let counter = 0;
+let EffectSelector = 0;
 function triggerValidMoveEffect() 
 {
   // Remove any existing effect container
   removeEffectContainer();
 
   // Create a new effect container
-  const effectContainer = createEffectContainer();  
-  console.log(`counter: ${counter}`);
-  if (counter === 0)
+  createEffectContainer();  
+  if (EffectSelector !== 1)
   {
     CongratEffect();
   }
-  else if (counter === 1)
+  if (EffectSelector !== 2)
   {
     FireworksEffect()
   }
-  else
-  {
-    CongratEffect();
-    FireworksEffect();
-  }
-  counter = (counter + 1) % 3;
+  EffectSelector = (EffectSelector + 1) % 3;
 
   // Reset animations for re-triggering
   setTimeout(() => {   
