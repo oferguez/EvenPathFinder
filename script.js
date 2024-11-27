@@ -22,7 +22,14 @@ function generateBoard() {
     board = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
     for (let i = 0; i < boardSize; i++) {
       for (let j = 0; j < boardSize; j++) {
-        board[i][j] = Math.floor(Math.random() * 101);
+        if (i + j === 0)
+        {
+          board[i][j] = 2 * Math.floor(Math.random() * 51);
+        }
+        else
+        {
+          board[i][j] = Math.floor(Math.random() * 101);
+        }
       }
     }
   } while (!hasValidPath());
@@ -224,22 +231,23 @@ function removeEffectContainer() {
   }
 }
 
-function triggerValidMoveEffect() 
+function CongratEffect()
 {
-  // Remove any existing effect container
-  removeEffectContainer();
-
-  // Create a new effect container
-  const effectContainer = createEffectContainer();  
-
   const shira = document.getElementById('shira');
-  const fireworks_container = document.getElementById('fireworks_container');
- 
+  console.log(`Congrating: shira=${shira}`);
   shira.style.animation = 'none';
-
   // Force reflow
   shira.offsetHeight; // This triggers a reflow
+  shira.style.animation = 'jump 2s ease-in-out forwards';
 
+}
+
+function FireworksEffect()
+{
+  
+  const fireworks_container = document.getElementById('fireworks_container');
+ 
+  
   // Generate random number of circles (between 2 and 10)
   const numFireworks = Math.floor(Math.random() * 9) + 2; // Random number between 2 and 10
 
@@ -262,12 +270,37 @@ function triggerValidMoveEffect()
     fireworks_container.appendChild(firework);
   }
 
-  shira.style.animation = 'jump 2s ease-in-out forwards';
   const fireworks = document.querySelectorAll('#fireworks');
 
   fireworks.forEach((fw) => {
     fw.style.animation = 'explode 2s ease-out forwards';
   });
+
+}
+
+let counter = 0;
+function triggerValidMoveEffect() 
+{
+  // Remove any existing effect container
+  removeEffectContainer();
+
+  // Create a new effect container
+  const effectContainer = createEffectContainer();  
+  console.log(`counter: ${counter}`);
+  if (counter === 0)
+  {
+    CongratEffect();
+  }
+  else if (counter === 1)
+  {
+    FireworksEffect()
+  }
+  else
+  {
+    CongratEffect();
+    FireworksEffect();
+  }
+  counter = (counter + 1) % 3;
 
   // Reset animations for re-triggering
   setTimeout(() => {   
