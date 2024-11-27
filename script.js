@@ -227,6 +227,11 @@ function removeEffectContainer() {
   const effectContainer = document.getElementById('effect');
   if (effectContainer) {
     effectContainer.remove();
+    console.log('ec removed');
+  }
+  else
+  {
+    console.log('ec not removed');
   }
 }
 
@@ -281,7 +286,7 @@ const colors = [
 // Function to select a random color
 function getRandomColor() {
   const randomIndex = Math.floor(Math.random() * colors.length);
-  return colors[randomIndex];
+  return colors[randomIndex].toLowerCase();
 }
 
 function FireworksEffect()
@@ -302,9 +307,11 @@ function FireworksEffect()
     firework.style.width = `${size}%`;
     firework.style.height = `${size}%`;
 
-    firework.style.background = `radial-gradient(circle, ${getRandomColor()}) 10%, transparent 0%);`;
+    fw = `radial-gradient(circle, '${getRandomColor()}') 10%, transparent 0%`;
+    console.log(fw);
+    firework.style.background = fw;
 
-    firework.style.color = getRandomColor();
+    //firework.style.color = getRandomColor();
 
     // Randomize position within the container
     const positionX = Math.floor(Math.random() * 100); // Percentage for left position
@@ -312,7 +319,16 @@ function FireworksEffect()
     firework.style.left = `${positionX}%`;
     firework.style.top = `${positionY}%`;
 
-    console.log(`firework: ${firework}`);
+    // Select the element
+
+    // Get all computed styles
+    //const styles = window.getComputedStyle(firework);
+    //console.log(`total11: ${styles.length}`);
+    for (let property of firework.style) {
+        console.log(`property: ${property} ${property.value}`);
+    }
+
+    console.log(`firework113: ${firework.style}`);
     fireworks_container.appendChild(firework);
   }
 
