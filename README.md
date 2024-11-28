@@ -2,7 +2,8 @@
 
 [Shira's Numbers Puzzle on GH Pages](https://oferguez.github.io/EvenPathFinder/)
 
-to od:
+to do:
+
 * responsive
 * choose odds/even
 * external config
