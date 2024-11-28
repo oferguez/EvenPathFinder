@@ -284,9 +284,11 @@ const colors = [
 ];
 
 // Function to select a random color
-function getRandomColor() {
+function getRandomFwStyle() {
   const randomIndex = Math.floor(Math.random() * colors.length);
-  return colors[randomIndex].toLowerCase();
+  randomColor = colors[randomIndex].toLowerCase();
+  randomTransparency = Math.floor(40 + 20*Math.random());
+  return `radial-gradient(circle, ${randomColor} 10%, transparent ${randomTransparency}%)`;
 }
 
 function FireworksEffect()
@@ -295,7 +297,7 @@ function FireworksEffect()
   const fireworks_container = document.getElementById('fireworks_container');
   
   // Generate random number of circles (between 2 and 10)
-  const numFireworks = Math.floor(Math.random() * 9) + 2; // Random number between 2 and 10
+  const numFireworks = Math.floor(Math.random() * 6) + 4; // Random number between 2 and 10
 
   for (let fw = 0; fw < numFireworks; fw++) {
     const firework = document.createElement('div');
@@ -304,39 +306,25 @@ function FireworksEffect()
 
     // Randomize size (20px to 100px)
     const size = Math.floor(Math.random() * 80 + 20);
-    firework.style.width = `${size}%`;
-    firework.style.height = `${size}%`;
+    firework.style.width = `${size}px`;
+    firework.style.height = `${size}px`;
+    fwstyle = getRandomFwStyle();
+    console.log(fwstyle);
+    firework.style.background = fwstyle;
 
-    fw = `radial-gradient(circle, '${getRandomColor()}') 10%, transparent 0%`;
-    console.log(fw);
-    firework.style.background = fw;
-
-    //firework.style.color = getRandomColor();
-
-    // Randomize position within the container
     const positionX = Math.floor(Math.random() * 100); // Percentage for left position
     const positionY = Math.floor(Math.random() * 100); // Percentage for top position
     firework.style.left = `${positionX}%`;
     firework.style.top = `${positionY}%`;
 
-    // Select the element
-
-    // Get all computed styles
-    //const styles = window.getComputedStyle(firework);
-    //console.log(`total11: ${styles.length}`);
-    for (let property of firework.style) {
-        console.log(`property: ${property} ${property.value}`);
-    }
-
-    console.log(`firework113: ${firework.style}`);
     fireworks_container.appendChild(firework);
   }
 
   const fireworks = document.querySelectorAll('#fireworks');
 
-  fireworks.forEach((fw) => {
-    fw.style.animation = 'explode 2s ease-out forwards';
-  });
+    fireworks.forEach((fw) => {
+      fw.style.animation = 'explode 0.5s ease-out forwards 3';
+    });
 
 }
 
