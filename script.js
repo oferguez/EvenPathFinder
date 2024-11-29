@@ -284,11 +284,24 @@ const colors = [
 ];
 
 // Function to select a random color
-function getRandomFwStyle() {
-  const randomIndex = Math.floor(Math.random() * colors.length);
+function setRandomFwStyle(fwStyle) {
+
+  let size = Math.floor(Math.random() * 70) + 30;
+  fwStyle.width = `${sz}px`;
+  fwStyle.height = `${sz}px`;
+
+  let randomIndex = Math.floor(Math.random() * colors.length);
   randomColor = colors[randomIndex].toLowerCase();
-  randomTransparency = Math.floor(40 + 20*Math.random());
-  return `radial-gradient(circle, ${randomColor} 10%, transparent ${randomTransparency}%)`;
+
+  fwStyle.background = `radial-gradient(circle, ${randomColor} 100%, transparent 75%)`;
+  fwStyle.position = 'absolute';
+  fwStyle.left = '50%';
+  fwStyle.top = '50%';
+  fwStyle.transform = 'translate(-40%, -55%)';
+  fwStyle.animation = '2s ease-out forwards explode1';
+
+  //randomTransparency = Math.floor(40 + 20*Math.random());
+  //return `radial-gradient(circle, ${randomColor} 10%, transparent ${randomTransparency}%)`;
 }
 
 function FireworksEffect()
@@ -301,33 +314,44 @@ function FireworksEffect()
 
   for (let fw = 0; fw < numFireworks; fw++) {
     const firework = document.createElement('div');
-    firework.id = 'fireworks';
-    firework.class = 'fireworks';
+    firework.id = `fireworks${fw}`;
+    firework.className = 'fireworks';
 
-    // Randomize size (20px to 100px)
-    const size = Math.floor(Math.random() * 80 + 20);
-    firework.style.width = `${size}px`;
-    firework.style.height = `${size}px`;
-    fwstyle = getRandomFwStyle();
-    console.log(fwstyle);
-    firework.style.background = fwstyle;
+    setRandomFwStyle(fwStyle);
+      
+    // Randomize size (70px to 100px)
+    // const size = Math.floor(Math.random() * 30 + 70);
+    // firework.style.width = `${size}px`;
+    // firework.style.height = `${size}px`;
+    // fwstyle = getRandomFwStyle();
+    // //console.log(fwstyle);
+    // firework.style.background = fwstyle;
 
-    const positionX = Math.floor(Math.random() * 100); // Percentage for left position
-    const positionY = Math.floor(Math.random() * 100); // Percentage for top position
-    firework.style.left = `${positionX}%`;
-    firework.style.top = `${positionY}%`;
+    // const positionX = Math.floor(Math.random() * 100); // Percentage for left position
+    // const positionY = Math.floor(Math.random() * 100); // Percentage for top position
+    // firework.style.left = `${positionX}%`;
+    // firework.style.top = `${positionY}%`;
 
     fireworks_container.appendChild(firework);
   }
 
-  const fireworks = document.querySelectorAll('#fireworks');
+  const fireworks = document.querySelectorAll('.fireworks');
 
-    fireworks.forEach((fw) => {
-      fw.style.animation = 'explode 0.5s ease-out forwards 3';
-    });
+  fireworks.forEach((fwork) => {
+    console.log(fwork.id);
+    fwork.style.animation = `explode${eRotate} 2s ease-out forwards`;
+    //eRotate = (eRotate + 1) % 3;
+
+    //const computedStyles = window.getComputedStyle(fwork);
+    //for (let property of computedStyles) {
+    //  console.log(`${property}: ${computedStyles.getPropertyValue(property)}`);
+    //}
+    
+  });
 
 }
 
+let eRotate = 1;
 let EffectSelector = 0;
 function triggerValidMoveEffect() 
 {
@@ -348,7 +372,7 @@ function triggerValidMoveEffect()
 
   // Reset animations for re-triggering
   setTimeout(() => {   
-    removeEffectContainer();
+    //removeEffectContainer();
   }, 2000); // Matches animation duration
 }
 
