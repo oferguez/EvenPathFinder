@@ -266,7 +266,6 @@ function CongratEffect()
   shira.textContent = getRandomCongratulation();
   shira.offsetHeight; // This triggers a reflow
   shira.style.animation = 'jump 2s ease-in-out forwards';
-
 }
 
 // Array of color names
@@ -287,8 +286,8 @@ const colors = [
 function setRandomFwStyle(fwStyle) {
 
   let size = Math.floor(Math.random() * 70) + 30;
-  fwStyle.width = `${sz}px`;
-  fwStyle.height = `${sz}px`;
+  fwStyle.width = `${size+1}px`;
+  fwStyle.height = `${size}px`;
 
   let randomIndex = Math.floor(Math.random() * colors.length);
   randomColor = colors[randomIndex].toLowerCase();
@@ -298,7 +297,7 @@ function setRandomFwStyle(fwStyle) {
   fwStyle.left = '50%';
   fwStyle.top = '50%';
   fwStyle.transform = 'translate(-40%, -55%)';
-  fwStyle.animation = '2s ease-out forwards explode1';
+  fwStyle.animation = '2s ease-out forwards explode0';
 
   //randomTransparency = Math.floor(40 + 20*Math.random());
   //return `radial-gradient(circle, ${randomColor} 10%, transparent ${randomTransparency}%)`;
@@ -307,17 +306,19 @@ function setRandomFwStyle(fwStyle) {
 function FireworksEffect()
 {
   
-  const fireworks_container = document.getElementById('fireworks_container');
+  // const fireworks_container = document.getElementById('fireworks_container');
+  const effectContainer =  document.getElementById('effect');
   
   // Generate random number of circles (between 2 and 10)
-  const numFireworks = Math.floor(Math.random() * 6) + 4; // Random number between 2 and 10
+  //const numFireworks = Math.floor(Math.random() * 6) + 4; // Random number between 2 and 10
+  const numFireworks = 1;
 
   for (let fw = 0; fw < numFireworks; fw++) {
     const firework = document.createElement('div');
     firework.id = `fireworks${fw}`;
     firework.className = 'fireworks';
 
-    setRandomFwStyle(fwStyle);
+    setRandomFwStyle(firework.style);
       
     // Randomize size (70px to 100px)
     // const size = Math.floor(Math.random() * 30 + 70);
@@ -332,14 +333,14 @@ function FireworksEffect()
     // firework.style.left = `${positionX}%`;
     // firework.style.top = `${positionY}%`;
 
-    fireworks_container.appendChild(firework);
+    effectContainer.appendChild(firework);
   }
 
   const fireworks = document.querySelectorAll('.fireworks');
 
   fireworks.forEach((fwork) => {
     console.log(fwork.id);
-    fwork.style.animation = `explode${eRotate} 2s ease-out forwards`;
+    fwork.style.animation = `explode${eR/otate} 2s ease-out forwards`;
     //eRotate = (eRotate + 1) % 3;
 
     //const computedStyles = window.getComputedStyle(fwork);
@@ -351,15 +352,28 @@ function FireworksEffect()
 
 }
 
-let eRotate = 1;
+function triggerValidMoveEffect() {
+    const effectContainer = document.getElementById('effect');
+  
+    // Add the animation class
+    effectContainer.classList.add('effect-blue');
+  
+    // Remove the class after the animation ends, so it can be re-triggered
+    setTimeout(() => {
+      effectContainer.classList.remove('effect-blue');
+    }, 2000); // Matches animation duration
+  }
+  
+
+let eRotate = 0;
 let EffectSelector = 0;
 function triggerValidMoveEffect() 
 {
   // Remove any existing effect container
-  removeEffectContainer();
+  //removeEffectContainer();
 
   // Create a new effect container
-  createEffectContainer();  
+  //createEffectContainer();  
   if (EffectSelector !== 1)
   {
     CongratEffect();
