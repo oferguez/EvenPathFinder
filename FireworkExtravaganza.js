@@ -1,15 +1,12 @@
 export default class FireworkExtravaganza {
-    constructor(parentElement) {
+    constructor(parentElement, numFireworks, lengthSeconds) {
         this.parent = parentElement;
-        let inputField = document.getElementById('numFireworks');
-        this.fwNumber = parseFloat(inputField.value);
+        this.fwNumber = numFireworks;
+        this.animationLen = 1000 * lengthSeconds;
         this.commonOptions = {
             easing: 'ease-in-out',
             fill: 'forwards'
         };
-        let lengthField =  document.getElementById('Length');
-        this.animationLen = 1000 * parseFloat(lengthField.value);
-
         this.parentWidth = parentElement.clientWidth;
         this.parentHeight = parentElement.clientHeight;
         console.log('Constructed');

@@ -9,7 +9,15 @@
   input, button { padding: 10px; margin: 5px; }
 
   #gameBoard {
-    transition: background-color 0.2s ease-in-out;
+    position: relative;
+    width: 75%;
+    height: 75%;
+    margin-top: 40px;
+    margin-bottom: 20px;
+  }
+
+  .Child {
+    position: absolute;  
   }
 
   @keyframes shake {

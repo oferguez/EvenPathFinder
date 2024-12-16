@@ -1,3 +1,12 @@
+import FireWorkExtravaganza from './FireworkExtravaganza.js';
+
+function setup() {
+  document.getElementById('newGame').addEventListener('click', newGame);
+  document.getElementById('resetGame').addEventListener('click', resetGame);
+}
+
+setup();
+
 // Global variables
 let boardSize = 6;
 let board = [];
@@ -77,6 +86,10 @@ function renderBoard() {
       {
         cell.addEventListener('click', () => makeMove(i, j));
       }
+      else
+      {
+        cell.addEventListener('click', () => illegalMove(i, j));
+      }
       gameBoard.appendChild(cell);
     }
     gameBoard.appendChild(document.createElement('br'));  
@@ -117,6 +130,10 @@ function isValidMove(x, y) {
   }
 
   return true;
+}
+
+function illegalMove(x, y) {
+  console.log(`baaaah x=${x} y=${y}`);
 }
 
 // Make a move
@@ -188,38 +205,39 @@ function showJokeMessage(color = null) {
   jokeMessages.textContent = randomJoke;
 }
 
-function createEffectContainer() {
-  // Create the #effect container
-  const effectContainer = document.createElement('div');
-  effectContainer.id = 'effect';
 
-  effectContainer.style.background.color = 'green';
+// function createEffectContainer() {
+//   // Create the #effect container
+//   const effectContainer = document.createElement('div');
+//   effectContainer.id = 'effect';
 
-  // Style the container
-  effectContainer.style.position = 'absolute'; // Position relative to the viewport
-  effectContainer.style.top = '0'; // Align to the top of the screen
-  effectContainer.style.left = '50%'; // Center horizontally
-  effectContainer.style.transform = 'translateX(-50%)'; // Adjust for centering
-  effectContainer.style.width = '75vw'; // 75% of the viewport width
-  effectContainer.style.height = '75vh'; // 75% of the viewport height
-  effectContainer.style.pointerEvents = 'none'; // Ensure it doesn’t block user interactions
-  effectContainer.style.zIndex = '999'; // Ensure it’s on top of other elements
+//   effectContainer.style.background.color = 'green';
 
-  // Create the #shira element
-  const shira = document.createElement('div');
-  shira.id = 'shira';
-  effectContainer.appendChild(shira);
+//   // Style the container
+//   effectContainer.style.position = 'absolute'; // Position relative to the viewport
+//   effectContainer.style.top = '0'; // Align to the top of the screen
+//   effectContainer.style.left = '50%'; // Center horizontally
+//   effectContainer.style.transform = 'translateX(-50%)'; // Adjust for centering
+//   effectContainer.style.width = '75vw'; // 75% of the viewport width
+//   effectContainer.style.height = '75vh'; // 75% of the viewport height
+//   effectContainer.style.pointerEvents = 'none'; // Ensure it doesn’t block user interactions
+//   effectContainer.style.zIndex = '999'; // Ensure it’s on top of other elements
 
-  // Create the #fireworks element
-  const fireworks_container = document.createElement('div');
-  fireworks_container.id = 'fireworks_container';
-  effectContainer.appendChild(fireworks_container);
+//   // Create the #shira element
+//   const shira = document.createElement('div');
+//   shira.id = 'shira';
+//   effectContainer.appendChild(shira);
 
-  // Append the effect container to the body
-  document.body.appendChild(effectContainer);
+//   // Create the #fireworks element
+//   const fireworks_container = document.createElement('div');
+//   fireworks_container.id = 'fireworks_container';
+//   effectContainer.appendChild(fireworks_container);
 
-  return effectContainer; // Return for further manipulation if needed
-}
+//   // Append the effect container to the body
+//   document.body.appendChild(effectContainer);
+
+//   return effectContainer; // Return for further manipulation if needed
+// }
 
 function removeEffectContainer() {
   //return;
@@ -259,13 +277,13 @@ function getRandomCongratulation() {
 
 function CongratEffect()
 {
-  const shira = document.getElementById('shira');
-  console.log(`Congrating: shira=${shira}`);
-  shira.style.animation = 'none';
+  const congrats = document.getElementById('congratulationMessage');
+  console.log(`Congrating: congrats=${congrats}`);
+  congrats.style.animation = 'none';
   // Force reflow
-  shira.textContent = getRandomCongratulation();
-  shira.offsetHeight; // This triggers a reflow
-  shira.style.animation = 'jump 2s ease-in-out forwards';
+  congrats.textContent = getRandomCongratulation();
+  congrats.offsetHeight; // This triggers a reflow
+  congrats.style.animation = 'jump 2s ease-in-out forwards';
 }
 
 // Array of color names
@@ -307,52 +325,56 @@ function FireworksEffect()
 {
   
   // const fireworks_container = document.getElementById('fireworks_container');
-  const effectContainer =  document.getElementById('effect');
+  const effectContainer =  document.getElementById('gameBoard');
+  let fw = new FireWorkExtravaganza(effectContainer, 20, 2.5);
+  fw.fireAll();
+}
   
+
   // Generate random number of circles (between 2 and 10)
   //const numFireworks = Math.floor(Math.random() * 6) + 4; // Random number between 2 and 10
-  const numFireworks = 1;
+  // const numFireworks = 1;
 
-  for (let fw = 0; fw < numFireworks; fw++) {
-    const firework = document.createElement('div');
-    firework.id = `fireworks${fw}`;
-    firework.className = 'fireworks';
+  // for (let fw = 0; fw < numFireworks; fw++) {
+  //   const firework = document.createElement('div');
+  //   firework.id = `fireworks${fw}`;
+  //   firework.className = 'fireworks';
 
-    setRandomFwStyle(firework.style);
+  //   setRandomFwStyle(firework.style);
       
-    // Randomize size (70px to 100px)
-    // const size = Math.floor(Math.random() * 30 + 70);
-    // firework.style.width = `${size}px`;
-    // firework.style.height = `${size}px`;
-    // fwstyle = getRandomFwStyle();
-    // //console.log(fwstyle);
-    // firework.style.background = fwstyle;
+  //   // Randomize size (70px to 100px)
+  //   // const size = Math.floor(Math.random() * 30 + 70);
+  //   // firework.style.width = `${size}px`;
+  //   // firework.style.height = `${size}px`;
+  //   // fwstyle = getRandomFwStyle();
+  //   // //console.log(fwstyle);
+  //   // firework.style.background = fwstyle;
 
-    // const positionX = Math.floor(Math.random() * 100); // Percentage for left position
-    // const positionY = Math.floor(Math.random() * 100); // Percentage for top position
-    // firework.style.left = `${positionX}%`;
-    // firework.style.top = `${positionY}%`;
+  //   // const positionX = Math.floor(Math.random() * 100); // Percentage for left position
+  //   // const positionY = Math.floor(Math.random() * 100); // Percentage for top position
+  //   // firework.style.left = `${positionX}%`;
+  //   // firework.style.top = `${positionY}%`;
 
-    effectContainer.appendChild(firework);
-  }
+  //   effectContainer.appendChild(firework);
+//   }
 
-  const fireworks = document.querySelectorAll('.fireworks');
+//   const fireworks = document.querySelectorAll('.fireworks');
 
-  fireworks.forEach((fwork) => {
-    console.log(fwork.id);
-    fwork.style.animation = `explode${eR/otate} 2s ease-out forwards`;
-    //eRotate = (eRotate + 1) % 3;
+//   fireworks.forEach((fwork) => {
+//     console.log(fwork.id);
+//     fwork.style.animation = `explode${eR/otate} 2s ease-out forwards`;
+//     //eRotate = (eRotate + 1) % 3;
 
-    //const computedStyles = window.getComputedStyle(fwork);
-    //for (let property of computedStyles) {
-    //  console.log(`${property}: ${computedStyles.getPropertyValue(property)}`);
-    //}
+//     //const computedStyles = window.getComputedStyle(fwork);
+//     //for (let property of computedStyles) {
+//     //  console.log(`${property}: ${computedStyles.getPropertyValue(property)}`);
+//     //}
     
-  });
+//   });
 
-}
+// }
 
-function triggerValidMoveEffect() {
+function triggerValidMoveEffect_old() {
     const effectContainer = document.getElementById('effect');
   
     // Add the animation class
@@ -389,8 +411,6 @@ function triggerValidMoveEffect()
     //removeEffectContainer();
   }, 2000); // Matches animation duration
 }
-
-
 
 function triggerWrongMoveEffect() {
   const gameBoard = document.getElementById('gameBoard');
