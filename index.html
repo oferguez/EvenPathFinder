@@ -14,6 +14,15 @@
   <input type="number" id="boardSize" min="4" max="12" value="6">
   <button onclick="newGame()">New Game</button>
   <button onclick="resetGame()">Reset Game</button>
+
+  <label for="numberType">Choose a number type</label>
+  <select id="numberType" name="numType">
+    <option value="evens">Evens</option>
+    <option value="odds">Odds</option>
+    <option value="Threepls">Multiples of 3</option>
+    <option value="Fifths">Multiples of 5</option>
+  </select>
+
 </div>
 <div id="gameBoard"></div>
 <div id="moveMessages"></div>
@@ -21,7 +30,7 @@
 <div id="factMessages"></div>
 <div id="effect">
   <div id="shira"></div>
-  <!-- <div id="fireworks"></div> -->
+  <!-- fireworks will be placed here -->
 </div>
 
 <script src="script.js"></script>
