@@ -32,22 +32,31 @@ let movesTaken = 0;
 // Start the game
 initGame();
 
-function CongratEffect()
+function CongratEffect(message = null, msLen = null)
 {
   const congrats = document.getElementById('congratulationMessage');
   console.log(`Congrating: congrats=${congrats}`);
-  congrats.textContent = getRandomCongratulation();
+
+  if (message === null) {
+    congrats.textContent = getRandomCongratulation();
+  }
+  else {
+    congrats.textContent = message;
+  }
   const anima = congrats.getAnimations()[0];
   anima.cancel();
   anima.play();
 }
 
-function FireworksEffect()
+function FireworksEffect(msLen = null)
 {
   
   // const fireworks_container = document.getElementById('fireworks_container');
   const effectContainer =  document.querySelector('body');
-  let fw = new FireWorkExtravaganza(effectContainer, 20, 2);
+  if (msLen === null) {
+    msLen = 2000;  
+  }
+  let fw = new FireWorkExtravaganza(effectContainer, 20, msLen);
   fw.fireAll();
 }
 
@@ -183,14 +192,15 @@ function makeMove(x, y) {
   previousPositions.push(currentPosition.slice());
   currentPosition = [x, y];
   movesTaken++;
+  renderBoard();
   if (x === boardSize - 1 && y === boardSize - 1) {
     showFactMessage(`Congratulations! You reached the end in ${movesTaken} moves.`, 'green');
+    triggerWinEffect();
     return;
   }
   showFactMessage(`Very well Shira!! Did you know ${getMathFact(board[x][y])}?`, 'green');
   showJokeMessage('#FF00FF');
 
-  renderBoard();
   console.log(`makemove: ${x} ${y}`);
   triggerValidMoveEffect();
 
@@ -274,12 +284,23 @@ function triggerValidMoveEffect()
   EffectSelector = (EffectSelector + 1) % 3;
 }
 
+function triggerWinEffect() {
+  triggerShakeEffect(2500);
+  FireworksEffect(2500);
+  CongratEffect('Well Done Shira!!!', 2500);
+}
+
 function triggerWrongMoveEffect() {
+  triggerShakeEffect(1000);
+}
+
+function triggerShakeEffect(msLength)
+{
   const gameBoard = document.getElementById('gameBoard');
   gameBoard.classList.add('shake');
 
   // Remove the shake effect after 0.5s
   setTimeout(() => {
     gameBoard.classList.remove('shake');
-  }, 1500);
+  }, msLength);
 }

@@ -1,8 +1,8 @@
 export default class FireworkExtravaganza {
-    constructor(parentElement, numFireworks, lengthSeconds) {
+    constructor(parentElement, numFireworks, msLength) {
         this.parent = parentElement;
         this.fwNumber = numFireworks;
-        this.animationLen = 1000 * lengthSeconds;
+        this.animationLen = msLength;
         this.commonOptions = {
             easing: 'ease-in-out',
             fill: 'forwards'
