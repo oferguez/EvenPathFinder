@@ -127,7 +127,7 @@ function renderBoard() {
       }
       else
       {
-        cell.classList.add('illegal-move');
+        cell.classList.add('blocked-move');
       }
       gameBoard.appendChild(cell);
     }
