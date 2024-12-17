@@ -34,7 +34,6 @@
     font-weight: bold;
     color: #ff4500; /* Orange-Red color for visibility */
     animation: slideUp 2s forwards cubic-bezier(0.42, 0, 0.58, 1);
-    /* text-align: center; */
   }
 
   @keyframes slideUp 

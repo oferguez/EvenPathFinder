@@ -327,7 +327,7 @@ export function FireworksEffect()
   
   // const fireworks_container = document.getElementById('fireworks_container');
   const effectContainer =  document.querySelector('body');
-  let fw = new FireWorkExtravaganza(effectContainer, 20, 2.5);
+  let fw = new FireWorkExtravaganza(effectContainer, 20, 2);
   fw.fireAll();
 }
   

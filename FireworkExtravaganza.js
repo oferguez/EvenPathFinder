@@ -29,7 +29,8 @@ export default class FireworkExtravaganza {
         firework.id = `Child${fw}`;
         this.parent.appendChild(firework);
     
-        let positioning = this.setRandomFwStyle(firework);
+        let positioning = this.setPositioning();
+        this.setRandomFwStyle(firework, positioning);
         this.setRandomFwAnimation(firework, positioning);
     }
 
@@ -64,10 +65,9 @@ export default class FireworkExtravaganza {
         return positioning;
     }
 
-    setRandomFwStyle(fw)
+    setRandomFwStyle(fw, positioning)
     { 
         let fwStyle = fw.style;
-        let positioning = this.setPositioning();
 
         fwStyle.width = `${positioning.size+1}px`;
         fwStyle.height = `${positioning.size+1}px`; 
@@ -86,7 +86,8 @@ export default class FireworkExtravaganza {
     getRandomConfinedPos(size)
     {
         const x = Math.floor(Math.random() * (this.parentWidth - size));
-        const y = Math.floor(Math.random() * (this.parentHeight - size));
+        // const y = Math.floor(Math.random() * (this.parentHeight - size));
+        const y = Math.floor(Math.random() * (window.innerHeight - size));
         return {x,y};
     }
 
