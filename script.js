@@ -3,6 +3,8 @@ import FireWorkExtravaganza from './FireworkExtravaganza.js';
 function setup() {
   document.getElementById('newGame').addEventListener('click', newGame);
   document.getElementById('resetGame').addEventListener('click', resetGame);
+  // document.getElementById('fw').addEventListener('click', FireworksEffect);
+  document.getElementById('testEffect').addEventListener('click', triggerValidMoveEffect);
 }
 
 setup();
@@ -71,7 +73,9 @@ function dfs(x, y, visited) {
 // Render the board
 function renderBoard() {
   const gameBoard = document.getElementById('gameBoard');
-  gameBoard.innerHTML = '';
+  // gameBoard.innerHTML = '';
+  const currentBoard = gameBoard.querySelectorAll('div, br');
+  Array.from(currentBoard).forEach(e => e.remove());
   for (let i = 0; i < boardSize; i++) {
     for (let j = 0; j < boardSize; j++) {
       const cell = document.createElement('div');
@@ -273,17 +277,14 @@ function getRandomCongratulation() {
   return congratulations[randomIndex];
 }
 
-
-
-function CongratEffect()
+export function CongratEffect()
 {
   const congrats = document.getElementById('congratulationMessage');
   console.log(`Congrating: congrats=${congrats}`);
-  congrats.style.animation = 'none';
-  // Force reflow
   congrats.textContent = getRandomCongratulation();
-  congrats.offsetHeight; // This triggers a reflow
-  congrats.style.animation = 'jump 2s ease-in-out forwards';
+  const anima = congrats.getAnimations()[0];
+  anima.cancel();
+  anima.play();
 }
 
 // Array of color names
@@ -321,11 +322,11 @@ function setRandomFwStyle(fwStyle) {
   //return `radial-gradient(circle, ${randomColor} 10%, transparent ${randomTransparency}%)`;
 }
 
-function FireworksEffect()
+export function FireworksEffect()
 {
   
   // const fireworks_container = document.getElementById('fireworks_container');
-  const effectContainer =  document.getElementById('gameBoard');
+  const effectContainer =  document.querySelector('body');
   let fw = new FireWorkExtravaganza(effectContainer, 20, 2.5);
   fw.fireAll();
 }

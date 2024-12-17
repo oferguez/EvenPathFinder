@@ -1,38 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shira's Numbers Puzzle</title>
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shira's Numbers Puzzle</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
-<h1>Math Adventure Game</h1>
-<div id="controls">
-  <label for="boardSize">Board Size (4-12):</label>
-  <input type="number" id="boardSize" min="4" max="12" value="6">
-  <button id="newGame">New Game</button>
-  <button id="resetGame"">Reset Game</button>
+  <h1>Math Adventure Game</h1>
 
-  <label for="numberType">Choose a number type</label>
-  <select id="numberType" name="numType">
-    <option value="evens">Evens</option>
-    <option value="odds">Odds</option>
-    <option value="Threepls">Multiples of 3</option>
-    <option value="Fifths">Multiples of 5</option>
-  </select>
+  <div id="controls">
+    <label for="boardSize">Board Size (4-12):</label>
+    <input type="number" id="boardSize" min="4" max="12" value="6">
+    <button id="newGame">New Game</button>
+    <button id="resetGame">Reset Game</button>
+    <label for="numberType">Choose a number type</label>
+      <select id="numberType" name="numType">
+        <option value="evens">Evens</option>
+        <option value="odds">Odds</option>
+        <option value="Threepls">Multiples of 3</option>
+        <option value="Fifths">Multiples of 5</option>
+      </select>
+  </div>
+  
+  <div id="gameBoard">
+    <button id="testEffect">TE</button> 
+  </div>
+  <div id="moveMessages"></div>
+  <div id="jokeMessages"></div>
+  <div id="factMessages"></div>
 
-</div>
-<div id="gameBoard"></div>
-<div id="moveMessages"></div>
-<div id="jokeMessages"></div>
-<div id="factMessages"></div>
-<div id="effect">
   <div id="congratulationMessage"></div>
-  <!-- fireworks will be placed here -->
-</div>
 
-<script type="module" src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
+
 </html>
