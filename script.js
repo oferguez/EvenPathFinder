@@ -8,6 +8,9 @@ function setupHandlers() {
 
 setupHandlers();
 
+window.S = triggerShakeEffect;
+window.R = triggerRainbowEffect;
+
 // New game
 function newGame() {
   initGame();
@@ -183,8 +186,8 @@ function isValidMove(x, y) {
 function makeMove(x, y) {
   if (!isValidMove(x, y)) {
     showMoveMessages('Oops! That move is not allowed.', 'red');
-    showJokeMessage();
-    showFactMessage(null, null);
+    // showJokeMessage();
+    // showFactMessage(null, null);
     triggerWrongMoveEffect();
     return;
   }
@@ -198,7 +201,7 @@ function makeMove(x, y) {
     return;
   }
   showFactMessage(`Very well Shira!! Did you know ${getMathFact(board[x][y])}?`, 'green');
-  showJokeMessage('#FF00FF');
+  // showJokeMessage('#FF00FF');
 
   console.log(`makemove: ${x} ${y}`);
   triggerValidMoveEffect();
@@ -284,6 +287,7 @@ function triggerValidMoveEffect()
 }
 
 function triggerWinEffect() {
+  triggerRainbowEffect(2500);
   triggerShakeEffect(2500);
   FireworksEffect(2500);
   CongratEffect('Well Done Shira!!!', 2500);
@@ -296,10 +300,20 @@ function triggerWrongMoveEffect() {
 function triggerShakeEffect(msLength)
 {
   const gameBoard = document.getElementById('gameBoard');
+  gameBoard.classList.remove('shake');
   gameBoard.classList.add('shake');
 
-  // Remove the shake effect after 0.5s
   setTimeout(() => {
     gameBoard.classList.remove('shake');
+  }, msLength);
+}
+
+function triggerRainbowEffect(msLength)
+{
+  let body = document.body;
+  body.classList.remove('rainbow-background');
+  body.classList.add('rainbow-background');
+  setTimeout(() => {
+    document.body.classList.remove('rainbow-background');
   }, msLength);
 }

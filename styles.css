@@ -63,8 +63,11 @@
     80% { transform: translateX(0); }
   }
 
+/* @keyframes duration | easing-function | delay |
+iteration-count | direction | fill-mode | play-state | name */
+
   .shake {
-    animation: shake 0.05s ease-in-out 8;
+    animation: shake 0.05s ease-in-out infinite;
   }
 
   .background-red {
@@ -86,4 +89,61 @@
     0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
     50% { transform: translate(-50%, -150%) scale(3); opacity: 1; }
     100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+  }
+
+  .rainbow-background {
+    width: 100vw;
+    height: 100vh;
+    /* background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet); */
+    /*👉background: linear-gradient(90deg, rgba(255,0,0,0.8), rgba(255,165,0,0.8), rgba(255,255,0,0.8), rgba(0,255,0,0.8), rgba(0,0,255,0.8), rgba(75,0,130,0.8), rgba(238,130,238,0.8));👈*/
+    /* background: linear-gradient(45deg, rgba(255,0,0,0.8), rgba(255,165,0,0.8), rgba(255,255,0,0.8), rgba(0,255,0,0.8), rgba(0,0,255,0.8), rgba(75,0,130,0.8), rgba(238,130,238,0.8));     */
+
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(255, 0, 0, .5) 0%,
+      rgba(255, 0, 0, .5) 14.28%,
+      rgba(255, 165, 0, .5) 14.28%,
+      rgba(255, 165, 0, .5) 28.56%,
+      rgba(255, 255, 0, .5) 28.56%,
+      rgba(255, 255, 0, .5) 42.84%,
+      rgba(0, 255, 0, .5) 42.84%,
+      rgba(0, 255, 0, .5) 57.12%,
+      rgba(0, 0, 255, .5) 57.12%,
+      rgba(0, 0, 255, .5) 71.4%,
+      rgba(75, 0, 130, .5) 71.4%,
+      rgba(75, 0, 130, .5) 85.68%,
+      rgba(238, 130, 238, .5) 85.68%,
+      rgba(238, 130, 238, .5) 100%);
+
+
+    /* background: repeating-linear-gradient(
+      45deg,
+      rgba(255, 0, 0, 1) 0%,
+      rgba(255, 0, 0, 1) 14.28%,
+      rgba(255, 165, 0, 1) 14.28%,
+      rgba(255, 165, 0, 1) 28.56%,
+      rgba(255, 255, 0, 1) 28.56%,
+      rgba(255, 255, 0, 1) 42.84%,
+      rgba(0, 255, 0, 1) 42.84%,
+      rgba(0, 255, 0, 1) 57.12%,
+      rgba(0, 0, 255, 1) 57.12%,
+      rgba(0, 0, 255, 1) 71.4%,
+      rgba(75, 0, 130, 1) 71.4%,
+      rgba(75, 0, 130, 1) 85.68%,
+      rgba(238, 130, 238, 1) 85.68%,
+      rgba(238, 130, 238, 1) 100%); */
+    background-size: 400% 400%; /* Expand background for smooth animation */
+    animation: rainbow 1s infinite linear; /* Smooth infinite loop */
+  }
+  
+  @keyframes rainbow {
+    0% {
+      background-position: 0% 50%;
+    }
+    50% {
+      background-position: 100% 50%;
+    }
+    100% {
+      background-position: 0% 50%;
+    }
   }
