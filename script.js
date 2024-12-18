@@ -3,7 +3,7 @@ import FireWorkExtravaganza from './FireworkExtravaganza.js';
 function setupHandlers() {
   document.getElementById('newGame').addEventListener('click', newGame);
   document.getElementById('resetGame').addEventListener('click', resetGame);
-  document.getElementById('testEffect').addEventListener('click', triggerValidMoveEffect);
+  //document.getElementById('testEffect').addEventListener('click', triggerValidMoveEffect);
 }
 
 setupHandlers();
@@ -50,7 +50,6 @@ function CongratEffect(message = null, msLen = null)
 
 function FireworksEffect(msLen = null)
 {
-  
   // const fireworks_container = document.getElementById('fireworks_container');
   const effectContainer =  document.querySelector('body');
   if (msLen === null) {
@@ -116,7 +115,7 @@ function dfs(x, y, visited) {
 }
 
 // Render the board
-function renderBoard() {
+export function renderBoard() {
   const gameBoard = document.getElementById('gameBoard');
   const currentBoard = gameBoard.querySelectorAll('div, br');
   Array.from(currentBoard).forEach(e => e.remove());
