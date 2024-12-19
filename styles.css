@@ -1,4 +1,12 @@
-  body { font-family: Arial, sans-serif; text-align: center; background-color: #f0f8ff; }
+  body { 
+    font-family: Arial, sans-serif; 
+    text-align: center; 
+    background-color: #f0f8ff; 
+
+    margin: 0;
+    overflow: hidden;
+  }
+
   .cell {width: 50px;height: 50px;line-height: 50px;border: 1px solid #333;display: inline-block;cursor: crosshair;font-size: 18px;background-color: #fff;color: #000;}
   .cell.highlight-current { background-color: #FF1493; cursor: not-allowed; }
   .cell.highlight-previous { background-color: #FFB6C1; }
@@ -94,11 +102,7 @@ iteration-count | direction | fill-mode | play-state | name */
   .rainbow-background {
     width: 100vw;
     height: 100vh;
-    /* background: linear-gradient(90deg, red, orange, yellow, green, blue, indigo, violet); */
-    /*👉background: linear-gradient(90deg, rgba(255,0,0,0.8), rgba(255,165,0,0.8), rgba(255,255,0,0.8), rgba(0,255,0,0.8), rgba(0,0,255,0.8), rgba(75,0,130,0.8), rgba(238,130,238,0.8));👈*/
-    /* background: linear-gradient(45deg, rgba(255,0,0,0.8), rgba(255,165,0,0.8), rgba(255,255,0,0.8), rgba(0,255,0,0.8), rgba(0,0,255,0.8), rgba(75,0,130,0.8), rgba(238,130,238,0.8));     */
-
-    background: repeating-linear-gradient(
+    background: repeatinglinear-gradient(
       90deg,
       rgba(255, 0, 0, .5) 0%,
       rgba(255, 0, 0, .5) 14.28%,
@@ -114,25 +118,7 @@ iteration-count | direction | fill-mode | play-state | name */
       rgba(75, 0, 130, .5) 85.68%,
       rgba(238, 130, 238, .5) 85.68%,
       rgba(238, 130, 238, .5) 100%);
-
-
-    /* background: repeating-linear-gradient(
-      45deg,
-      rgba(255, 0, 0, 1) 0%,
-      rgba(255, 0, 0, 1) 14.28%,
-      rgba(255, 165, 0, 1) 14.28%,
-      rgba(255, 165, 0, 1) 28.56%,
-      rgba(255, 255, 0, 1) 28.56%,
-      rgba(255, 255, 0, 1) 42.84%,
-      rgba(0, 255, 0, 1) 42.84%,
-      rgba(0, 255, 0, 1) 57.12%,
-      rgba(0, 0, 255, 1) 57.12%,
-      rgba(0, 0, 255, 1) 71.4%,
-      rgba(75, 0, 130, 1) 71.4%,
-      rgba(75, 0, 130, 1) 85.68%,
-      rgba(238, 130, 238, 1) 85.68%,
-      rgba(238, 130, 238, 1) 100%); */
-    background-size: 400% 400%; /* Expand background for smooth animation */
+    background-size: 40% 40%; /* Expand background for smooth animation */
     animation: rainbow 1s infinite linear; /* Smooth infinite loop */
   }
   

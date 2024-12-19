@@ -310,10 +310,10 @@ function triggerShakeEffect(msLength)
 
 function triggerRainbowEffect(msLength)
 {
-  let body = document.body;
-  body.classList.remove('rainbow-background');
-  body.classList.add('rainbow-background');
+  var we = document.getElementById('winEffect');
+  we.classList.add('rainbow-dance-background');
+
   setTimeout(() => {
-    document.body.classList.remove('rainbow-background');
+    we.classList.remove('rainbow-dance-background');
   }, msLength);
 }
