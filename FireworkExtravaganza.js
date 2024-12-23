@@ -21,6 +21,9 @@ export default class FireworkExtravaganza {
         for ( let fw = 0; fw < this.fwNumber; fw++ ) {
            this.fire(fw);
         }
+        setTimeout(() => {
+            this.cleanup();          }, this.animationLen);
+        
         console.log('fired all');
     }
     fire(fw) {
