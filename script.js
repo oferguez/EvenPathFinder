@@ -40,7 +40,6 @@ initGame();
 function CongratEffect(message = null, msLen = null)
 {
   const congrats = document.getElementById('congratulationMessage');
-  console.log(`Congrating: congrats=${congrats}`);
 
   if (message === null) {
     congrats.textContent = getRandomCongratulation();
@@ -73,29 +72,26 @@ function initGame() {
     return;
   }
   numberType = document.getElementById('numberType').value;
+  currentPosition = [0, 0];
+  previousPositions = [];
   generateBoard();
   renderBoard();
 }
 
 function generateBoard() {
-  console.log(`1 ${boardSize}`);
   board = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
-  console.log(`2 ${boardSize}`);
   let i = 0;
   let j = 0;
-  console.log(`3 ${boardSize}`);
-  console.log(`4 ${(i < boardSize)}`);
-  console.log(`5 ${(j < boardSize)}`);
-  while ((i < boardSize) && (j < boardSize))
+  let done = false;
+  while (!done)
   {
-    console.log('yoyo');
-    board[i][j] = randomValidNumber(bound);
+    let rv = randomValidNumber(bound);
+    board[i][j] = rv;
     let nextMove = nextPathElement(board, i, j);
     i = nextMove.i;
     j = nextMove.j;
-    console.log(`nm: ${i} ${j}`);
+    done = nextMove.done;
   }
-  console.log('w_f');
   for (i = 0; i < boardSize; i++) {
     for (j = 0; j < boardSize; j++) {
       if (board[i][j] === 0) {
@@ -110,79 +106,27 @@ function nextPathElement(board, i0, j0)
   let i = 0;
   let j = 0;
   let r = 0;
+  if (i0 === boardSize-1 && j0 === boardSize-1)
+  {
+    return {i0,j0, done:true};
+  }
+
   do
   {
     i = i0;
     j = j0;
-    r = Math.random() * 4;
-    if (r < 1)              // up
-    {
-      j--;
-    }
-    else if (r < 2)        // down
-    {
-      j++;
-    }
-    else if (r < 3)        // left
-    {
-      i--
-    }
-    else                  // right
+    r = Math.random() * 2;
+    if (r < 1)
     {
       i++;
     }
-    if (i === boardSize-1 && j === boardSize-1)
+    else 
     {
-      break;
+      j++;
     }
-    console.log('npe');
-    console.log(`npe: ${i} ${j}`);
-  } while ( i >= 0 && i < boardSize && j >= 0 && j < boardSize && board[i][j] > 0)
-  return {i,j};
+  } while ( i === boardSize || j === boardSize || board[i][j] !== 0)
+  return {i,j, done:false};
 
-}
-
-// Generate a new board with at least one valid path
-function generateBoard1() {
-  do {
-    board = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
-    for (let i = 0; i < boardSize; i++) {
-      for (let j = 0; j < boardSize; j++) {
-        if (i + j === 0)
-        {
-          board[i][j] = 2 * Math.floor(Math.random() * 51);
-        }
-        else
-        {
-          board[i][j] = Math.floor(Math.random() * 101);
-        }
-      }
-    }
-  } while (!hasValidPath());
-  currentPosition = [0, 0];
-  previousPositions = [];
-  movesTaken = 0;
-}
-
-// Check if there's at least one valid path from start to finish
-function hasValidPath() {
-  const visited = Array.from({ length: boardSize }, () => Array(boardSize).fill(false));
-  return dfs(0, 0, visited);
-}
-
-// Depth-first search to find a valid path
-function dfs(x, y, visited) {
-  if (x === boardSize - 1 && y === boardSize - 1) return true;
-  visited[x][y] = true;
-  const directions = [[0, 1], [1, 0], [0, -1], [-1, 0]];
-  for (const [dx, dy] of directions) {
-    const nx = x + dx;
-    const ny = y + dy;
-    if (nx >= 0 && nx < boardSize && ny >= 0 && ny < boardSize && !visited[nx][ny] && isValidNumber(board[nx][ny])) {
-      if (dfs(nx, ny, visited)) return true;
-    }
-  }
-  return false;
 }
 
 // Render the board
@@ -246,25 +190,27 @@ function isValidMove(x, y) {
 }
 
 function randomValidNumber(bound) {
-  console.log('rvn');
+  let result = -100;
   switch (numberType)
   {
     case 'evens':
-      return 2 * Math.floor(Math.random() * (bound+1) / 2);
+      result =  2 * (1 + Math.floor(Math.random() * bound / 2) );
     break;
 
     case 'odds':
-      return 1 + 2 * Math.floor(Math.random() * bound / 2);
+      result =  1 + 2 * Math.floor(Math.random() * bound / 2);
     break;
 
     case 'Threepls':
-      return 3 * (Math.floor(Math.random()) * bound / 3);
+      result =  3 * (1 + Math.floor(Math.random() * bound / 3) );
     break;
 
     case 'Fifths':
-      return 5 * (Math.floor(Math.random()) * bound / 5);
+      result =  5 * (1 + Math.floor(Math.random() * bound / 5) );
     break;
   }
+
+  return result;
 }
 
 function randomInvalidNumber(bound) {
@@ -332,7 +278,6 @@ function makeMove(x, y) {
   showFactMessage(`Very well Shira!! Did you know ${getMathFact(board[x][y])}?`, 'green');
   // showJokeMessage('#FF00FF');
 
-  console.log(`makemove: ${x} ${y}`);
   triggerValidMoveEffect();
 
 }

@@ -9,14 +9,12 @@ export default class FireworkExtravaganza {
         };
         this.parentWidth = parentElement.clientWidth;
         this.parentHeight = parentElement.clientHeight;
-        console.log('Constructed');
     }
     cleanup() {
         const currentFireworks = document.getElementsByClassName('Child');
         Array.from(currentFireworks).forEach(fw => fw.remove());
     }
     fireAll() {
-        console.log('firing all...');
         this.cleanup();
         for ( let fw = 0; fw < this.fwNumber; fw++ ) {
            this.fire(fw);
@@ -24,7 +22,6 @@ export default class FireworkExtravaganza {
         setTimeout(() => {
             this.cleanup();          }, this.animationLen);
         
-        console.log('fired all');
     }
     fire(fw) {
         const firework = document.createElement('div');
