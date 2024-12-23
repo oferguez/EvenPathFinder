@@ -31,7 +31,8 @@ let board = [];
 let currentPosition = [0, 0];
 let previousPositions = [];
 let movesTaken = 0;
-let numberType = 'evens'
+let numberType = 'evens';
+let bound = 100;
 
 // Start the game
 initGame();
@@ -76,8 +77,73 @@ function initGame() {
   renderBoard();
 }
 
-// Generate a new board with at least one valid path
 function generateBoard() {
+  console.log(`1 ${boardSize}`);
+  board = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
+  console.log(`2 ${boardSize}`);
+  let i = 0;
+  let j = 0;
+  console.log(`3 ${boardSize}`);
+  console.log(`4 ${(i < boardSize)}`);
+  console.log(`5 ${(j < boardSize)}`);
+  while ((i < boardSize) && (j < boardSize))
+  {
+    console.log('yoyo');
+    board[i][j] = randomValidNumber(bound);
+    let nextMove = nextPathElement(board, i, j);
+    i = nextMove.i;
+    j = nextMove.j;
+    console.log(`nm: ${i} ${j}`);
+  }
+  console.log('w_f');
+  for (i = 0; i < boardSize; i++) {
+    for (j = 0; j < boardSize; j++) {
+      if (board[i][j] === 0) {
+        board[i][j] = randomInvalidNumber(bound);
+      }
+    }
+  }
+}
+
+function nextPathElement(board, i0, j0)
+{
+  let i = 0;
+  let j = 0;
+  let r = 0;
+  do
+  {
+    i = i0;
+    j = j0;
+    r = Math.random() * 4;
+    if (r < 1)              // up
+    {
+      j--;
+    }
+    else if (r < 2)        // down
+    {
+      j++;
+    }
+    else if (r < 3)        // left
+    {
+      i--
+    }
+    else                  // right
+    {
+      i++;
+    }
+    if (i === boardSize-1 && j === boardSize-1)
+    {
+      break;
+    }
+    console.log('npe');
+    console.log(`npe: ${i} ${j}`);
+  } while ( i >= 0 && i < boardSize && j >= 0 && j < boardSize && board[i][j] > 0)
+  return {i,j};
+
+}
+
+// Generate a new board with at least one valid path
+function generateBoard1() {
   do {
     board = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
     for (let i = 0; i < boardSize; i++) {
@@ -177,6 +243,38 @@ function isValidMove(x, y) {
   }
 
   return isValidNumber(board[x][y]);
+}
+
+function randomValidNumber(bound) {
+  console.log('rvn');
+  switch (numberType)
+  {
+    case 'evens':
+      return 2 * Math.floor(Math.random() * (bound+1) / 2);
+    break;
+
+    case 'odds':
+      return 1 + 2 * Math.floor(Math.random() * bound / 2);
+    break;
+
+    case 'Threepls':
+      return 3 * (Math.floor(Math.random()) * bound / 3);
+    break;
+
+    case 'Fifths':
+      return 5 * (Math.floor(Math.random()) * bound / 5);
+    break;
+  }
+}
+
+function randomInvalidNumber(bound) {
+  let r = 0;
+  do
+  { 
+    r = Math.floor(Math.random() * bound);
+  } while (isValidNumber(r));
+
+  return r;
 }
 
 function isValidNumber(num) {
