@@ -3,7 +3,7 @@ import FireWorkExtravaganza from './FireworkExtravaganza.js';
 function setupHandlers() {
   document.getElementById('newGame').addEventListener('click', newGame);
   document.getElementById('resetGame').addEventListener('click', resetGame);
-  //document.getElementById('testEffect').addEventListener('click', triggerValidMoveEffect);
+  document.getElementById('numberType').addEventListener("change", newGame);
 }
 
 setupHandlers();
@@ -31,6 +31,7 @@ let board = [];
 let currentPosition = [0, 0];
 let previousPositions = [];
 let movesTaken = 0;
+let numberType = 'evens'
 
 // Start the game
 initGame();
@@ -70,6 +71,7 @@ function initGame() {
     showFactMessage('Please enter a valid board size between 4 and 12.', 'red');
     return;
   }
+  numberType = document.getElementById('numberType').value;
   generateBoard();
   renderBoard();
 }
@@ -110,7 +112,7 @@ function dfs(x, y, visited) {
   for (const [dx, dy] of directions) {
     const nx = x + dx;
     const ny = y + dy;
-    if (nx >= 0 && nx < boardSize && ny >= 0 && ny < boardSize && !visited[nx][ny] && board[nx][ny] % 2 === 0) {
+    if (nx >= 0 && nx < boardSize && ny >= 0 && ny < boardSize && !visited[nx][ny] && isValidNumber(board[nx][ny])) {
       if (dfs(nx, ny, visited)) return true;
     }
   }
@@ -174,11 +176,40 @@ function isValidMove(x, y) {
     return false;
   }
 
-  if (board[x][y] % 2 !== 0) 
-  {
-    return false;
-  }
+  return isValidNumber(board[x][y]);
+}
 
+function isValidNumber(num) {
+  switch (numberType)
+  {
+    case 'evens':
+    if (num % 2 !== 0)
+      {
+        return false;
+      }
+    break;
+
+    case 'odds':
+      if (num % 2 !== 1) 
+      {
+        return false;
+      }
+    break;
+
+    case 'Threepls':
+      if (num % 3 !== 0) 
+      {
+        return false;
+      }
+    break;
+
+    case 'Fifths':
+      if (num % 5 !== 0) 
+      {
+        return false;
+      }
+    break;
+  }
   return true;
 }
 
