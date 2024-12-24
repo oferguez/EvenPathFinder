@@ -95,7 +95,7 @@ function generateBoard() {
   for (i = 0; i < boardSize; i++) {
     for (j = 0; j < boardSize; j++) {
       if (board[i][j] === 0) {
-        board[i][j] = randomInvalidNumber(bound);
+        board[i][j] = randomNumber(bound);
       }
     }
   }
@@ -213,14 +213,9 @@ function randomValidNumber(bound) {
   return result;
 }
 
-function randomInvalidNumber(bound) {
-  let r = 0;
-  do
-  { 
-    r = Math.floor(Math.random() * bound);
-  } while (isValidNumber(r));
-
-  return r;
+function randomNumber(bound) 
+{
+  return Math.floor(Math.random() * bound);
 }
 
 function isValidNumber(num) {
