@@ -1,0 +1,21 @@
+{
+  "name": "evenpathfinder",
+  "type": "module",
+  "version": "1.0.0",
+  "description": "[Shira's Numbers Puzzle on GH Pages](https://oferguez.github.io/EvenPathFinder/)",
+  "main": "script.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "github.com/oferguez/EvenPathFinder"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.17.0",
+    "eslint": "^9.17.0",
+    "globals": "^15.14.0"
+  }
+}

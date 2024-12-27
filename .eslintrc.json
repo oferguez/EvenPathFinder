@@ -1,0 +1,25 @@
+{
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": "latest"
+  },
+  "env": {
+    "es6": true,
+    "browser": true
+  },
+  "rules": {
+    "camelcase": ["warn", { "properties": "always" }],
+    "indent": ["warn", 2],
+    "spacing-in-parens": ["warn", "never"],
+    "space-infix-ops": "warn",
+    "space-before-blocks": "warn",
+    "space-before-function-paren": ["warn", "always"],
+    "no-multiple-empty-lines": ["warn", { "max": 1 }],
+    "object-curly-spacing": ["warn", "always"],
+    "comma-spacing": ["warn", { "before": false, "after": true }],
+    "semi": ["warn", "always"],
+    "quotes": ["warn", "single"]
+  }
+}
+
+  
