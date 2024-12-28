@@ -3,7 +3,7 @@ import FireWorkExtravaganza from './FireworkExtravaganza.js';
 function setupHandlers() {
   document.getElementById('newGame').addEventListener('click', newGame);
   document.getElementById('resetGame').addEventListener('click', resetGame);
-  document.getElementById('numberType').addEventListener("change", newGame);
+  document.getElementById('numberType').addEventListener('change', newGame);
 }
 
 setupHandlers();
@@ -63,7 +63,6 @@ function FireworksEffect(msLen = null)
   fw.fireAll();
 }
 
-
 // Initialize the game
 function initGame() {
   boardSize = parseInt(document.getElementById('boardSize').value);
@@ -106,9 +105,9 @@ function nextPathElement(board, i0, j0)
   let i = 0;
   let j = 0;
   let r = 0;
-  if (i0 === boardSize-1 && j0 === boardSize-1)
+  if (i0 === boardSize - 1 && j0 === boardSize - 1)
   {
-    return {i0,j0, done:true};
+    return { i0, j0, done:true };
   }
 
   do
@@ -124,8 +123,8 @@ function nextPathElement(board, i0, j0)
     {
       j++;
     }
-  } while ( i === boardSize || j === boardSize || board[i][j] !== 0)
-  return {i,j, done:false};
+  } while (i === boardSize || j === boardSize || board[i][j] !== 0);
+  return { i, j, done:false };
 
 }
 
@@ -157,7 +156,7 @@ export function renderBoard() {
     gameBoard.appendChild(document.createElement('br'));  
   }
 
-  showMoveMessages(`Moves taken: ${movesTaken}`,'blue');
+  showMoveMessages(`Moves taken: ${movesTaken}`, 'blue');
 }
 
 function isNeighbour(x, y)
@@ -181,7 +180,7 @@ function isNeighbour(x, y)
 
 // Validate if a move is possible
 function isValidMove(x, y) {
-  if (!isNeighbour(x,y))
+  if (!isNeighbour(x, y))
   {
     return false;
   }
@@ -193,20 +192,20 @@ function randomValidNumber(bound) {
   let result = -100;
   switch (numberType)
   {
-    case 'evens':
-      result =  2 * (1 + Math.floor(Math.random() * bound / 2) );
+  case 'evens':
+    result =  2 * (1 + Math.floor(Math.random() * bound / 2));
     break;
 
-    case 'odds':
-      result =  1 + 2 * Math.floor(Math.random() * bound / 2);
+  case 'odds':
+    result =  1 + 2 * Math.floor(Math.random() * bound / 2);
     break;
 
-    case 'Threepls':
-      result =  3 * (1 + Math.floor(Math.random() * bound / 3) );
+  case 'Threepls':
+    result =  3 * (1 + Math.floor(Math.random() * bound / 3));
     break;
 
-    case 'Fifths':
-      result =  5 * (1 + Math.floor(Math.random() * bound / 5) );
+  case 'Fifths':
+    result =  5 * (1 + Math.floor(Math.random() * bound / 5));
     break;
   }
 
@@ -221,32 +220,32 @@ function randomNumber(bound)
 function isValidNumber(num) {
   switch (numberType)
   {
-    case 'evens':
+  case 'evens':
     if (num % 2 !== 0)
-      {
-        return false;
-      }
+    {
+      return false;
+    }
     break;
 
-    case 'odds':
-      if (num % 2 !== 1) 
-      {
-        return false;
-      }
+  case 'odds':
+    if (num % 2 !== 1) 
+    {
+      return false;
+    }
     break;
 
-    case 'Threepls':
-      if (num % 3 !== 0) 
-      {
-        return false;
-      }
+  case 'Threepls':
+    if (num % 3 !== 0) 
+    {
+      return false;
+    }
     break;
 
-    case 'Fifths':
-      if (num % 5 !== 0) 
-      {
-        return false;
-      }
+  case 'Fifths':
+    if (num % 5 !== 0) 
+    {
+      return false;
+    }
     break;
   }
   return true;
@@ -310,11 +309,11 @@ function showJokeMessage(color = null) {
   }
 
   const hamsterJokes = [
-    "Why did the hamster go to the doctor? Because it was feeling a little squirrelly!",
-    "Why did the hamster join a band? To play the drums, of course!",
-    "Why did the hamster go to the gym? To get wheel-toned!",
-    "Why did the hamster become a detective? It wanted to catch a sneaky mouse!",
-    "Why did the hamster go to the beach? To suntan its tiny hamster cheeks!"
+    'Why did the hamster go to the doctor? Because it was feeling a little squirrelly!',
+    'Why did the hamster join a band? To play the drums, of course!',
+    'Why did the hamster go to the gym? To get wheel-toned!',
+    'Why did the hamster become a detective? It wanted to catch a sneaky mouse!',
+    'Why did the hamster go to the beach? To suntan its tiny hamster cheeks!'
   ];
   const randomJoke = hamsterJokes[Math.floor(Math.random() * hamsterJokes.length)];
   jokeMessages.style.color = color;
@@ -323,16 +322,16 @@ function showJokeMessage(color = null) {
 
 // Array of congratulatory messages
 const congratulations = [
-  "Great job, Shira!",
-  "Well done, Shira!",
-  "Awesome work, Shira!",
-  "You nailed it, Shira!",
-  "Bravo, Shira!",
-  "Fantastic, Shira!",
-  "Keep it up, Shira!",
-  "Amazing effort, Shira!",
-  "Way to go, Shira!",
-  "Impressive, Shira!"
+  'Great job, Shira!',
+  'Well done, Shira!',
+  'Awesome work, Shira!',
+  'You nailed it, Shira!',
+  'Bravo, Shira!',
+  'Fantastic, Shira!',
+  'Keep it up, Shira!',
+  'Amazing effort, Shira!',
+  'Way to go, Shira!',
+  'Impressive, Shira!'
 ];
 
 // Function to select a random message
@@ -350,7 +349,7 @@ function triggerValidMoveEffect()
   }
   if (EffectSelector !== 2)
   {
-    FireworksEffect()
+    FireworksEffect();
   }
   EffectSelector = (EffectSelector + 1) % 3;
 }
