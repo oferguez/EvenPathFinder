@@ -28,21 +28,24 @@ function newGame() {
 
 // Reset game
 function resetGame() {
-  currentPosition = [0, 0];
-  previousPositions = [];
-  movesTaken = 0;
-  renderBoard();
-  showFactMessage('', '');
+  gameState.currentPosition = [0, 0];
+  gameState.previousPositions = [];
+  gameState.movesTaken = 0;
+  gameState.renderBoard();
+  gameState.showFactMessage('', '');
 }
 
-// defaults
-let boardSize = 6;
-let board = [];
-let currentPosition = [0, 0];
-let previousPositions = [];
-let movesTaken = 0;
-let numberType = 'evens';
-let bound = 100;
+const gameState = {
+  boardSize: 6,
+  board: [],
+  currentPosition: [0, 0],
+  previousPositions: [],
+  movesTaken: 0,
+  numberType: 'evens',
+  bound: 100
+};
+
+export {gameState };
 
 // Start the game, if document has already been initialized
 if (document.getElementById('boardSize')) {
@@ -77,36 +80,36 @@ function FireworksEffect(msLen = null)
 
 // Initialize the game
 function initGame() {
-  boardSize = parseInt(document.getElementById('boardSize').value);
-  if (isNaN(boardSize) || boardSize < 4 || boardSize > 12) {
+  gameState.boardSize = parseInt(document.getElementById('boardSize').value);
+  if (isNaN(gameState.boardSize) || gameState.boardSize < 4 || gameState.boardSize > 12) {
     showFactMessage('Please enter a valid board size between 4 and 12.', 'red');
     return;
   }
-  numberType = document.getElementById('numberType').value;
-  currentPosition = [0, 0];
-  previousPositions = [];
+  gameState.numberType = document.getElementById('numberType').value;
+  gameState.currentPosition = [0, 0];
+  gameState.previousPositions = [];
   generateBoard();
   renderBoard();
 }
 
 function generateBoard() {
-  board = Array.from({ length: boardSize }, () => Array(boardSize).fill(0));
+  gameState.board = Array.from({ length: gameState.boardSize }, () => Array(gameState.boardSize).fill(0));
   let i = 0;
   let j = 0;
   let done = false;
   while (!done)
   {
-    let rv = randomValidNumber(bound);
-    board[i][j] = rv;
-    let nextMove = nextPathElement(board, i, j);
+    let rv = randomValidNumber();
+    gameState.board[i][j] = rv;
+    let nextMove = nextPathElement(gameState.board, i, j);
     i = nextMove.i;
     j = nextMove.j;
     done = nextMove.done;
   }
-  for (i = 0; i < boardSize; i++) {
-    for (j = 0; j < boardSize; j++) {
-      if (board[i][j] === 0) {
-        board[i][j] = randomNumber(bound);
+  for (i = 0; i < gameState.boardSize; i++) {
+    for (j = 0; j < gameState.boardSize; j++) {
+      if (gameState.board[i][j] === 0) {
+        gameState.board[i][j] = randomNumber();
       }
     }
   }
@@ -117,7 +120,7 @@ function nextPathElement(board, i0, j0)
   let i = 0;
   let j = 0;
   let r = 0;
-  if (i0 === boardSize - 1 && j0 === boardSize - 1)
+  if (i0 === gameState.boardSize - 1 && j0 === gameState.boardSize - 1)
   {
     return { i0, j0, done:true };
   }
@@ -135,7 +138,7 @@ function nextPathElement(board, i0, j0)
     {
       j++;
     }
-  } while (i === boardSize || j === boardSize || board[i][j] !== 0);
+  } while (i === gameState.boardSize || j === gameState.boardSize || gameState.board[i][j] !== 0);
   return { i, j, done:false };
 
 }
@@ -145,14 +148,14 @@ export function renderBoard() {
   const gameBoard = document.getElementById('gameBoard');
   const currentBoard = gameBoard.querySelectorAll('div, br');
   Array.from(currentBoard).forEach(e => e.remove());
-  for (let i = 0; i < boardSize; i++) {
-    for (let j = 0; j < boardSize; j++) {
+  for (let i = 0; i < gameState.boardSize; i++) {
+    for (let j = 0; j < gameState.boardSize; j++) {
       const cell = document.createElement('div');
       cell.className = 'cell';
-      cell.textContent = board[i][j];
-      if (i === currentPosition[0] && j === currentPosition[1]) {
+      cell.textContent = gameState.board[i][j];
+      if (i === gameState.currentPosition[0] && j === gameState.currentPosition[1]) {
         cell.classList.add('highlight-current');
-      } else if (previousPositions.some(pos => pos[0] === i && pos[1] === j)) {
+      } else if (gameState.previousPositions.some(pos => pos[0] === i && pos[1] === j)) {
         cell.classList.add('highlight-previous');
       }
       if (isNeighbour(i, j))
@@ -168,18 +171,18 @@ export function renderBoard() {
     gameBoard.appendChild(document.createElement('br'));  
   }
 
-  showMoveMessages(`Moves taken: ${movesTaken}`, 'blue');
+  showMoveMessages(`Moves taken: ${gameState.movesTaken}`, 'blue');
 }
 
 function isNeighbour(x, y)
 {
-  if (x < 0 || x >= boardSize || y < 0 || y >= boardSize)
+  if (x < 0 || x >= gameState.boardSize || y < 0 || y >= gameState.boardSize)
   {
     return false;
   }
 
   // one step horizontally or vertically
-  const [currentX, currentY] = currentPosition;
+  const [currentX, currentY] = gameState.currentPosition;
   const deltaX = Math.abs(x - currentX);
   const deltaY = Math.abs(y - currentY);
   if (deltaX > 1 || deltaY > 1 || Math.abs(deltaX - deltaY) !== 1)
@@ -197,40 +200,40 @@ function isValidMove(x, y) {
     return false;
   }
 
-  return isValidNumber(board[x][y]);
+  return isValidNumber(gameState.board[x][y]);
 }
 
-function randomValidNumber(bound) {
+function randomValidNumber() {
   let result = -100;
-  switch (numberType)
+  switch (gameState.numberType)
   {
   case 'evens':
-    result =  2 * (1 + Math.floor(Math.random() * bound / 2));
+    result =  2 * (1 + Math.floor(Math.random() * gameState.bound / 2));
     break;
 
   case 'odds':
-    result =  1 + 2 * Math.floor(Math.random() * bound / 2);
+    result =  1 + 2 * Math.floor(Math.random() * gameState.bound / 2);
     break;
 
   case 'Threepls':
-    result =  3 * (1 + Math.floor(Math.random() * bound / 3));
+    result =  3 * (1 + Math.floor(Math.random() * gameState.bound / 3));
     break;
 
   case 'Fifths':
-    result =  5 * (1 + Math.floor(Math.random() * bound / 5));
+    result =  5 * (1 + Math.floor(Math.random() * gameState.bound / 5));
     break;
   }
 
   return result;
 }
 
-function randomNumber(bound) 
+function randomNumber() 
 {
-  return Math.floor(Math.random() * bound);
+  return Math.floor(Math.random() * gameState.bound);
 }
 
 function isValidNumber(num) {
-  switch (numberType)
+  switch (gameState.numberType)
   {
   case 'evens':
     if (num % 2 !== 0)
@@ -272,16 +275,16 @@ function makeMove(x, y) {
     triggerWrongMoveEffect();
     return;
   }
-  previousPositions.push(currentPosition.slice());
-  currentPosition = [x, y];
-  movesTaken++;
+  gameState.previousPositions.push(gameState.currentPosition.slice());
+  gameState.currentPosition = [x, y];
+  gameState.movesTaken++;
   renderBoard();
-  if (x === boardSize - 1 && y === boardSize - 1) {
-    showFactMessage(`Congratulations! You reached the end in ${movesTaken} moves.`, 'green');
+  if (x === gameState.boardSize - 1 && y === gameState.boardSize - 1) {
+    showFactMessage(`Congratulations! You reached the end in ${gameState.movesTaken} moves.`, 'green');
     triggerWinEffect();
     return;
   }
-  showFactMessage(`Very well Shira!! Did you know ${getMathFact(board[x][y])}?`, 'green');
+  showFactMessage(`Very well Shira!! Did you know ${getMathFact(gameState.board[x][y])}?`, 'green');
   // showJokeMessage('#FF00FF');
 
   triggerValidMoveEffect();

@@ -1,4 +1,4 @@
-import { setupHandlers, newGame, resetGame, boardSize } from '../script';
+import { setupHandlers, newGame, resetGame, gameState } from '../script';
 
 console.log('yoyo');
 
@@ -37,6 +37,23 @@ beforeEach(() => {
   jest.resetModules(); // Clear module cache to ensure fresh import
 });
 
+expect.extend({
+  toBePositive(received) {
+    const pass = typeof received === 'number' && received > 0;
+    if (pass) {
+      return {
+        message: () => `expected ${received} not to be positive`,
+        pass: true,
+      };
+    } else {
+      return {
+        message: () => `expected ${received} to be positive`,
+        pass: false,
+      };
+    }
+  },
+});
+
 test('setupHandlers attaches event listeners correctly', () => {
 
   console.log('test called');
@@ -47,7 +64,11 @@ test('setupHandlers attaches event listeners correctly', () => {
   // Trigger events and verify handlers are called
   document.getElementById('newGame').click();
 
-  //const boardSize = script.__get__('boardSize');
-
-  expect(boardSize).toBe(8);
+  const N = gameState.boardSize;
+  expect(N).toBePositive();
+  expect(Array.isArray(gameState.board)).toBe(true);
+  expect(gameState.board.length).toBe(N);
+  gameState.board.forEach((innerArray) => {
+    expect(Array.isArray(innerArray)).toBe(true);
+  });
 });

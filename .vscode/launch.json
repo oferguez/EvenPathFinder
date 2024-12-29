@@ -28,9 +28,9 @@
             "cwd": "${workspaceFolder}",
             "console": "integratedTerminal",
             "internalConsoleOptions": "neverOpen",
-            "runtimeArgs": [
-                "--inspect-brk"
-            ]
+            // "runtimeArgs": [
+            //     "--inspect-brk"
+            // ]
         }
     ]
 }
