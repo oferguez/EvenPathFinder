@@ -1,25 +1,53 @@
-import { add } from 'script.js';
+import { setupHandlers, newGame, resetGame, boardSize } from '../script';
 
-test('adds 1 + 2 to equal 3', () => {
-  expect(add(1, 2)).toBe(3);
+console.log('yoyo');
+
+// Mock DOM structure
+beforeEach(() => {
+  // Set up the DOM structure required for your test
+  console.log('yaya');
+  document.body.innerHTML = `
+<body>
+
+  <h1>Math Adventure Game</h1>
+
+  <div id="winEffect"></div> 
+
+  <div id="controls">
+    <label for="boardSize">Board Size (4-12):</label>
+    <input type="number" id="boardSize" min="4" max="12" value="8">
+    <button id="newGame">New Game</button>
+    <button id="resetGame">Reset Game</button>
+    <label for="numberType">Choose a number type</label>
+      <select id="numberType" name="numType">
+        <option value="evens">Evens</option>
+        <option value="odds">Odds</option>
+        <option value="Threepls">Multiples of 3</option>
+        <option value="Fifths">Multiples of 5</option>
+      </select>
+  </div>
+  <div id="gameBoard">
+    <!-- <button id="testEffect">TE</button>  -->
+  </div>
+  <div id="moveMessages"></div>
+  <div id="jokeMessages"></div>
+  <div id="factMessages"></div>
+  <div id="congratulationMessage"></div>
+</body>`;
+  jest.resetModules(); // Clear module cache to ensure fresh import
 });
 
-test('reset() sets global variables to default values', () => {
-  // Clear module cache
-  jest.resetModules();
-  
-  // Dynamically import the module to get fresh state
-  const module = require('../src/exampleModule');
-  
-  // Call the reset function
-  module.reset();
-  
-  // Access private variables through the cached module
-  const board = module.__get__('board');
-  const currentPosition = module.__get__('globalVariable2');
-  
-  // Assertions
-  expect(board).toBe([]);
-  expect(currentPosition).toBe([0,0]);
+test('setupHandlers attaches event listeners correctly', () => {
+
+  console.log('test called');
+
+  // Run the function to attach event handlers
+  setupHandlers();
+
+  // Trigger events and verify handlers are called
+  document.getElementById('newGame').click();
+
+  //const boardSize = script.__get__('boardSize');
+
+  expect(boardSize).toBe(8);
 });
-  

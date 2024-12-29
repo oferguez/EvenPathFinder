@@ -1,9 +1,19 @@
 import FireWorkExtravaganza from './FireworkExtravaganza.js';
 
-function setupHandlers() {
-  document.getElementById('newGame').addEventListener('click', newGame);
-  document.getElementById('resetGame').addEventListener('click', resetGame);
-  document.getElementById('numberType').addEventListener('change', newGame);
+export function setupHandlers() {
+  const newGameButton = document.getElementById('newGame');
+  const resetGameButton = document.getElementById('resetGame');
+  const numberTypeSelect = document.getElementById('numberType');
+
+  if (!newGameButton || !resetGameButton || !numberTypeSelect) {
+    console.error('Required DOM elements are missing.');
+    return;
+  }
+  console.log('setting up handlers');
+
+  newGameButton.addEventListener('click', newGame);
+  resetGameButton.addEventListener('click', resetGame);
+  numberTypeSelect.addEventListener('change', newGame);
 }
 
 setupHandlers();
@@ -34,8 +44,10 @@ let movesTaken = 0;
 let numberType = 'evens';
 let bound = 100;
 
-// Start the game
-initGame();
+// Start the game, if document has already been initialized
+if (document.getElementById('boardSize')) {
+  initGame();
+}
 
 function CongratEffect(message = null, msLen = null)
 {
