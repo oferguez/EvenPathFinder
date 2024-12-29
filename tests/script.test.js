@@ -1,11 +1,7 @@
 import { setupHandlers, newGame, resetGame, gameState } from '../script';
 
-console.log('yoyo');
-
 // Mock DOM structure
 beforeEach(() => {
-  // Set up the DOM structure required for your test
-  console.log('yaya');
   document.body.innerHTML = `
 <body>
 
