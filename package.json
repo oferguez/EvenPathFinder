@@ -5,7 +5,7 @@
   "description": "[Shira's Numbers Puzzle on GH Pages](https://oferguez.github.io/EvenPathFinder/)",
   "main": "script.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "build": "npm run test"
   },
   "repository": {
