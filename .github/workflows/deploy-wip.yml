@@ -22,8 +22,16 @@ jobs:
     - name: Install dependencies
       run: npm install
 
-    - name: Build project
-      run: npm run build -- --output-dir ./build
+    - name: Test project
+      run: npm run Test
+
+    - name: publish
+      run: rm -rf ./build && 
+           mkdir -p build && 
+           cp -r index.html script.js FireworkExtravaganza.js styles.css ./build 
+
+    - name: diag1
+      run: ls -lR build
       
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
