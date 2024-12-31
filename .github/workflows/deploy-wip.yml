@@ -26,13 +26,15 @@ jobs:
       run: npm run test
 
     - name: publish
-      run: rm -rf ./build && 
-           mkdir -p build && 
-           cp -r index.html script.js FireworkExtravaganza.js styles.css ./build 
+      run: |
+        rm -rf ./build
+        mkdir -p ./build/branch/wip
+        cp -r index.html script.js FireworkExtravaganza.js styles.css ./build/branch/wip/
 
-    - name: diag1
-      run: pwd &&
-           ls -lR ./build
+    - name: Debug directory structure
+      run: |
+        echo "Build directory structure:"
+        tree ./build || ls -R ./build
       
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
