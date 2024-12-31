@@ -42,3 +42,4 @@ jobs:
         github_token: ${{ secrets.GH_ACTIONS_1 }}
         publish_dir: ./build
         destination_dir: branch/wip
+        force_orphan: true
