@@ -28,8 +28,8 @@ jobs:
     - name: publish
       run: |
         rm -rf ./build
-        mkdir -p ./build/branch/wip
-        cp -r index.html script.js FireworkExtravaganza.js styles.css ./build/branch/wip/
+        mkdir -p ./build
+        cp -r index.html script.js FireworkExtravaganza.js styles.css rainbow.css ./build
 
     - name: Debug directory structure
       run: |
