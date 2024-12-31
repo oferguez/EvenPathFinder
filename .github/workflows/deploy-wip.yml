@@ -31,11 +31,12 @@ jobs:
            cp -r index.html script.js FireworkExtravaganza.js styles.css ./build 
 
     - name: diag1
-      run: ls -lR build
+      run: pwd &&
+           ls -lR ./build
       
     - name: Deploy to GitHub Pages
       uses: peaceiris/actions-gh-pages@v3
       with:
         github_token: ${{ secrets.GH_ACTIONS_1 }}
-        publish_dir: build
+        publish_dir: ./build
         destination_dir: branch/wip
