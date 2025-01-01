@@ -6,7 +6,7 @@ export function setupHandlers() {
   const numberTypeSelect = document.getElementById('numberType');
 
   if (!newGameButton || !resetGameButton || !numberTypeSelect) {
-    console.error('Required DOM elements are missing.');
+    console.warn('Required DOM elements are missing. can not setup handlers at this time');
     return;
   }
   console.log('setting up handlers');
