@@ -6,7 +6,7 @@ export function setupHandlers() {
   const numberTypeSelect = document.getElementById('numberType');
 
   if (!newGameButton || !resetGameButton || !numberTypeSelect) {
-    console.error('Required DOM elements are missing.');
+    console.warn('Required DOM elements are missing. can not setup handlers at this time');
     return;
   }
   console.log('setting up handlers');
@@ -45,7 +45,7 @@ const gameState = {
   bound: 100
 };
 
-export {gameState };
+export { gameState };
 
 // Start the game, if document has already been initialized
 if (document.getElementById('boardSize')) {
