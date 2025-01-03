@@ -17,4 +17,4 @@
 * in FireworkExtravaganza - create the Child element internally. no need to push that requirement to the user 
 * support multi user (few tabs on the browser playing the game, globals seems to collide)
 
-  123
+THIS IS WIP
