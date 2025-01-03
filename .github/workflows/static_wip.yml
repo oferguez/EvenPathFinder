@@ -56,4 +56,5 @@ jobs:
         run: |
           ls -lR .
           cat README.md
+          git fetch origin
           git ls-tree -r gh-pages
