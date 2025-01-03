@@ -41,9 +41,7 @@ jobs:
           rm -rf ./WIP
           mkdir -p ./WIP
           cp -r index.html script.js FireworkExtravaganza.js styles.css rainbow.css ./WIP
-  
-      - name: diag
-        run: ls -lR . 
+   
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -53,3 +51,9 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: diag
+        run: |
+          ls -lR .
+          cat README.md
+          git ls-tree -r gh-pages
