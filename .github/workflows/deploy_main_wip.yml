@@ -18,13 +18,19 @@ jobs:
         with:
           ref: ${{ github.event.inputs.branch }}        
 
-      # Step 2: Clone the existing gh-pages branch
-      - name: Clone gh-pages branch
+      # Step 2: log checked out  branch and version
+      - name: Report checked out 
         run: |
           SRC_COMMIT_HASH=$(git rev-parse --short HEAD)
-          echo "EPF: after checking out ${{ github.event.inputs.branch }}, Hash=$SRC_COMMIT_HASH:"
+          echo $SRC_COMMIT_HASH >> $GITHUB_ENV_SRC_COMMIT_HASH
+          echo "EPF: after checking out ${{ github.event.inputs.branch }}, Hash=$SRC_COMMIT_HASH"
           pwd
           ls -lR
+
+
+      # Step 3: Clone the existing gh-pages branch
+      - name: Clone gh-pages branch
+        run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone --branch gh-pages https://github.com/${{ github.repository }} gh-pages
@@ -32,7 +38,7 @@ jobs:
           pwd
           ls -lR
 
-      # Step 3: Copy build output to the appropriate directory
+      # Step 4: Copy build output to the appropriate directory
       - name: Prepare deployment
         run: |
           if [ ${{github.event.inputs.branch}} == "main" ]; then
@@ -51,7 +57,7 @@ jobs:
           pwd
           ls -lR
 
-        # Step 4: Commit and push changes
+        # Step 5: Commit and push changes
       - name: Commit and push
         run: |
             cd gh-pages
@@ -65,5 +71,5 @@ jobs:
             pwd
             git status
             ls -lR
-            git commit --allow-empty -m "Update GitHub Pages:$GHP_COMMIT_HASH for branch=${{github.event.inputs.branch}} and hash=$SRC_COMMIT_HASH"
+            git commit --allow-empty -m "Update GitHub Pages:$GHP_COMMIT_HASH for branch=${{github.event.inputs.branch}} and hash=$GITHUB_ENV_SRC_COMMIT_HASH"
             git push origin gh-pages
