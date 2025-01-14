@@ -1,6 +1,7 @@
 # EvenPathFinder
 
-[Shira's Numbers Puzzle on GH Pages](https://oferguez.github.io/EvenPathFinder/)
+* [Shira's Numbers Puzzle on GH Pages](https://oferguez.github.io/EvenPathFinder/)
+* [Dev WIP](https://oferguez.github.io/EvenPathFinder/wip)
 
 # to do:
 
