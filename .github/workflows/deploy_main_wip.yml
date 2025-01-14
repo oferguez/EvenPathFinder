@@ -15,10 +15,16 @@ jobs:
       # Step 1: Check out the repository
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}        
 
       # Step 2: Clone the existing gh-pages branch
       - name: Clone gh-pages branch
         run: |
+          SRC_COMMIT_HASH=$(git rev-parse --short HEAD)
+          echo "EPF: after checking out ${{ github.event.inputs.branch }}, Hash=$SRC_COMMIT_HASH:"
+          pwd
+          ls -lR
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git clone --branch gh-pages https://github.com/${{ github.repository }} gh-pages
@@ -52,11 +58,11 @@ jobs:
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
             git remote set-url origin https://x-access-token:${{ secrets.GH_ACTIONS_1 }}@github.com/${{ github.repository }}
-            COMMIT_HASH=$(git rev-parse --short HEAD)
+            GHP_COMMIT_HASH=$(git rev-parse --short HEAD)
             git add .
             echo "EPF: about to commit and push gh-pages:"
             pwd
             git status
             ls -lR
-            git commit --allow-empty -m "Update GitHub Pages for branch=$GITHUB_REF_NAME hash=$COMMIT_HASH"
+            git commit --allow-empty -m "Update GitHub Pages:GHP_COMMIT_HASH for branch={{github.event.inputs.branch}} and hash=$SRC_COMMIT_HASH"
             git push origin gh-pages
