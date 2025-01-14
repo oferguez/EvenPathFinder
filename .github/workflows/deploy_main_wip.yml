@@ -35,17 +35,17 @@ jobs:
       # Step 3: Copy build output to the appropriate directory
       - name: Prepare deployment
         run: |
-          if [ {{github.event.inputs.branch}} == "main" ]; then
+          if [ ${{github.event.inputs.branch}} == "main" ]; then
             echo Publishing MAIN
             mkdir -p gh-pages
             find . -maxdepth 1 -type f -exec cp {} gh-pages/ \;  # Copy only files
-          elif [ {{github.event.inputs.branch}} == "wip" ]; then
+          elif [ ${{github.event.inputs.branch}} == "wip" ]; then
             echo Publishing WIP
             mkdir -p gh-pages/wip
             find . -maxdepth 1 -type f -exec cp {} gh-pages/wip/ \;  # Copy only files
           else
             echo Error: publishing should be done from either main or wip
-            exit1
+            exit 1
           fi
           echo "EPF: after preparing deployment"
           pwd
@@ -65,5 +65,5 @@ jobs:
             pwd
             git status
             ls -lR
-            git commit --allow-empty -m "Update GitHub Pages:GHP_COMMIT_HASH for branch={{github.event.inputs.branch}} and hash=$SRC_COMMIT_HASH"
+            git commit --allow-empty -m "Update GitHub Pages:$GHP_COMMIT_HASH for branch=${{github.event.inputs.branch}} and hash=$SRC_COMMIT_HASH"
             git push origin gh-pages
