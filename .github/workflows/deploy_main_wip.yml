@@ -51,7 +51,7 @@ jobs:
             # Configure Git to use the GitHub token for authentication
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
-            git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}
+            git remote set-url origin https://x-access-token:${{ secrets.GH_ACTIONS_1 }}@github.com/${{ github.repository }}
             COMMIT_HASH=$(git rev-parse --short HEAD)
             git add .
             echo "EPF: about to commit and push gh-pages:"
