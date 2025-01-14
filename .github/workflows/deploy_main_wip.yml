@@ -1,13 +1,12 @@
 name: Deploy GitHub Pages - WIP and MAIN
 
 on:
-  push:
-    workflow_dispatch:
-      inputs:
-        branch:
-          description: 'Branch to execute the workflow on'
-          required: true
-          default: 'main'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to execute the workflow on'
+        required: true
+        default: 'main'
 jobs:
   deploy:
     runs-on: ubuntu-latest
