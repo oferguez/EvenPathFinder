@@ -22,7 +22,7 @@ jobs:
       - name: Report checked out 
         run: |
           SRC_COMMIT_HASH=$(git rev-parse --short HEAD)
-          echo $SRC_COMMIT_HASH >> $GITHUB_ENV_SRC_COMMIT_HASH
+          echo "SRC_COMMIT_HASH=$SRC_COMMIT_HASH" >> $GITHUB_ENV
           echo "EPF: after checking out ${{ github.event.inputs.branch }}, Hash=$SRC_COMMIT_HASH"
           pwd
           ls -lR
@@ -71,5 +71,5 @@ jobs:
             pwd
             git status
             ls -lR
-            git commit --allow-empty -m "Update GitHub Pages:$GHP_COMMIT_HASH for branch=${{github.event.inputs.branch}} and hash=$GITHUB_ENV_SRC_COMMIT_HASH"
+            git commit --allow-empty -m "Update GitHub Pages:$GHP_COMMIT_HASH for branch=${{github.event.inputs.branch}} and hash=$SRC_COMMIT_HASH"
             git push origin gh-pages
