@@ -171,8 +171,47 @@ class Game {
     moveMessages.textContent = text;
   }
 
+  isValidNumber(num) {
+    switch (this.numberType)
+    {
+    case 'evens':
+      if (num % 2 !== 0)
+      {
+        return false;
+      }
+      break;
+    case 'odds':
+      if (num % 2 !== 1) 
+      {
+        return false;
+      }
+      break;
+    case 'Threepls':
+      if (num % 3 !== 0) 
+      {
+        return false;
+      }
+      break;
+    case 'Fifths':
+      if (num % 5 !== 0) 
+      {
+        return false;
+      }
+      break;
+    }
+    return true;
+  }
+  
+  isValidMove(x, y) {
+    if (!this.isNeighbour(x, y))
+    {
+      return false;
+    }
+    return this.isValidNumber(this.board[x][y]);
+  }
+
   makeMove(x, y) {
-    if (!this.isNeighbour(x, y)) {
+    if (!this.isValidMove(x, y)) {
       this.showMoveMessages('Oops! That move is not allowed.', 'red');
       this.triggerWrongMoveEffect();
       return;
