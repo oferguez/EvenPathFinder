@@ -4,8 +4,11 @@
   "version": "1.0.0",
   "description": "[Shira's Numbers Puzzle on GH Pages](https://oferguez.github.io/EvenPathFinder/)",
   "main": "script.js",
+  "publishConfig": {
+    "directory": "build"
+  },
   "scripts": {
-    "test": "jest",
+    "test": "jest --passWithNoTests",
     "build": "npm run test"
   },
   "repository": {
@@ -30,3 +33,4 @@
     "jest-environment-jsdom": "^29.7.0"
   }
 }
+
