@@ -1,0 +1,75 @@
+name: Deploy GitHub Pages - WIP and MAIN
+
+on:
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'Branch to execute the workflow on'
+        required: true
+        default: 'main'
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out the repository
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.branch }}        
+
+      # Step 2: log checked out  branch and version
+      - name: Report checked out 
+        run: |
+          SRC_COMMIT_HASH=$(git rev-parse --short HEAD)
+          echo "SRC_COMMIT_HASH=$SRC_COMMIT_HASH" >> $GITHUB_ENV
+          echo "EPF: after checking out ${{ github.event.inputs.branch }}, Hash=$SRC_COMMIT_HASH"
+          pwd
+          ls -lR
+
+
+      # Step 3: Clone the existing gh-pages branch
+      - name: Clone gh-pages branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git clone --branch gh-pages https://github.com/${{ github.repository }} gh-pages
+          echo "EPF: after cloning gh-pages branch:"
+          pwd
+          ls -lR
+
+      # Step 4: Copy build output to the appropriate directory
+      - name: Prepare deployment
+        run: |
+          if [ ${{github.event.inputs.branch}} == "main" ]; then
+            echo Publishing MAIN
+            mkdir -p gh-pages
+            find . -maxdepth 1 -type f -exec cp {} gh-pages/ \;  # Copy only files
+          elif [ ${{github.event.inputs.branch}} == "wip" ]; then
+            echo Publishing WIP
+            mkdir -p gh-pages/wip
+            find . -maxdepth 1 -type f -exec cp {} gh-pages/wip/ \;  # Copy only files
+          else
+            echo Error: publishing should be done from either main or wip
+            exit 1
+          fi
+          echo "EPF: after preparing deployment"
+          pwd
+          ls -lR
+
+        # Step 5: Commit and push changes
+      - name: Commit and push
+        run: |
+            cd gh-pages
+            # Configure Git to use the GitHub token for authentication
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
+            git remote set-url origin https://x-access-token:${{ secrets.GH_ACTIONS_1 }}@github.com/${{ github.repository }}
+            GHP_COMMIT_HASH=$(git rev-parse --short HEAD)
+            git add .
+            echo "EPF: about to commit and push gh-pages:"
+            pwd
+            git status
+            ls -lR
+            git commit --allow-empty -m "Update GitHub Pages:$GHP_COMMIT_HASH for branch=${{github.event.inputs.branch}} and hash=$SRC_COMMIT_HASH"
+            git push origin gh-pages
