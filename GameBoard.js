@@ -1,5 +1,5 @@
 import FireWorkExtravaganza from './FireworkExtravaganza.js';
-import loadPreferences from './settings.js'
+import { loadPreferences } from './settings.js'
 
 class Game {
   constructor() {

@@ -3,7 +3,7 @@ function getUserConfigKey(username) {
     return `userConfig_${username}`;
 }
 
-function loadPreferences(username = null) {
+export function loadPreferences(username = null) {
     if (!username) {
         username = currentUser;
     }
