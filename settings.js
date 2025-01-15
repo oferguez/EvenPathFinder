@@ -41,6 +41,12 @@ const boardSizeInput = document.getElementById("boardSize");
 const numberTypeInput = document.getElementById("numberType");
 const apiKeyInput = document.getElementById("apiKey");
 
+function updateMainScreen () {
+    let preferences = loadPreferences();
+    document.getElementById('showNumberType').textContent = preferences.numberType;
+    document.getElementById('showPlayerName').textContent = `Hello ${preferences.name}!`
+}
+
 // Open settings modal
 settingsButton.addEventListener("click", () => {
     const preferences = loadPreferences(currentUser);
@@ -53,6 +59,7 @@ settingsButton.addEventListener("click", () => {
 
     // Show modal
     settingsModal.classList.add("active");
+    updateMainScreen();
 });
 
 // Save preferences
@@ -75,3 +82,5 @@ cancelSettings.addEventListener("click", () => {
     // Simply close the modal without saving
     settingsModal.classList.remove("active");
 });
+
+updateMainScreen();
