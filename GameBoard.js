@@ -245,9 +245,8 @@ class Game {
   }
   
   fireworksEffect(msLength = null) {
-    const effectContainer = document.querySelector('body');
     msLength = msLength || 2000;
-    const fw = new FireWorkExtravaganza(effectContainer, 20, msLength);
+    const fw = new FireWorkExtravaganza(20, msLength);
     fw.fireAll();
   }
   
