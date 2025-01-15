@@ -1,4 +1,5 @@
 import FireWorkExtravaganza from './FireworkExtravaganza.js';
+import { loadPreferences } from './settings.js'
 
 class Game {
   constructor() {
@@ -42,13 +43,15 @@ class Game {
   }
 
   initGame() {
-    this.boardSize = parseInt(document.getElementById('boardSize').value);
+    let preferences = loadPreferences();
+    this.boardSize = preferences.boardSize;
     if (isNaN(this.boardSize) || this.boardSize < 4 || this.boardSize > 12) {
       this.showFactMessage('Please enter a valid board size between 4 and 12.', 'red');
       return;
     }
 
-    this.numberType = document.getElementById('numberType').value;
+    this.numberType = preferences.numberType;
+    this.name = preferences.name;
     this.currentPosition = [0, 0];
     this.previousPositions = [];
     this.generateBoard();
@@ -257,7 +260,7 @@ class Game {
     this.triggerRainbowEffect(2500);
     this.triggerShakeEffect(2500);
     this.fireworksEffect(2500);
-    this.congratEffect('Well Done Shira!!!', 2500);
+    this.congratEffect(`Well Done ${this.name}!!!`, 2500);
   }
   
   triggerWrongMoveEffect() {
@@ -299,16 +302,16 @@ class Game {
   
   getRandomCongratulation() {
     const congratulations = [
-      'Great job, Shira!',
-      'Well done, Shira!',
-      'Awesome work, Shira!',
-      'You nailed it, Shira!',
-      'Bravo, Shira!',
-      'Fantastic, Shira!',
-      'Keep it up, Shira!',
-      'Amazing effort, Shira!',
-      'Way to go, Shira!',
-      'Impressive, Shira!'
+      `Great job, ${this.name}!`,
+      `Well done, ${this.name}!`,
+      `Awesome work, ${this.name}`,
+      `You nailed it, ${this.name}`,
+      `Bravo, ${this.name}!`,
+      `Fantastic, ${this.name}!`,
+      `Keep it up, ${this.name}!`,
+      `Amazing effort, ${this.name}!`,
+      `Way to go, ${this.name}!`,
+      `Impressive, ${this.name}!`
     ];
     return congratulations[Math.floor(Math.random() * congratulations.length)];
   } 
