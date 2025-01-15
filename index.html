@@ -16,19 +16,10 @@
   <div id="winEffect"></div> 
 
   <div id="controls">
-    <label for="boardSize">Board Size (4-12):</label>
-    <input type="number" id="boardSize" min="4" max="12" value="8">
     <button id="newGame">New Game</button>
     <button id="resetGame">Reset Game</button>
-    <label for="numberType">Choose a number type</label>
-      <select id="numberType" name="numType">
-        <option value="evens">Evens</option>
-        <option value="odds">Odds</option>
-        <option value="Threepls">Multiples of 3</option>
-        <option value="Fifths">Multiples of 5</option>
-      </select>
-      <button id="settingsButton">Settings</button>
-    </div>
+    <button id="settingsButton">Settings</button>
+  </div>
   
   <div id="gameBoard">
     <!-- <button id="testEffect">TE ST</button>  -->
@@ -44,7 +35,6 @@
     <div class="modal-content">
         <div class="modal-header">
             <h2>Settings</h2>
-            <button id="closeModal" class="close-button">&times;</button>
         </div>
         <form id="settingsForm">
             <div class="form-group">

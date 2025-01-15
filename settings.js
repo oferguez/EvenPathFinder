@@ -3,7 +3,10 @@ function getUserConfigKey(username) {
     return `userConfig_${username}`;
 }
 
-function loadPreferences(username) {
+function loadPreferences(username = null) {
+    if (!username) {
+        username = currentUser;
+    }
     const configKey = getUserConfigKey(username);
     const preferences = localStorage.getItem(configKey);
     return preferences ? JSON.parse(preferences) : getDefaultPreferences();
