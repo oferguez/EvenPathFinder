@@ -23,8 +23,9 @@ jobs:
         run: |
           SRC_COMMIT_HASH=$(git rev-parse --short HEAD)
           echo "SRC_COMMIT_HASH=$SRC_COMMIT_HASH" >> $GITHUB_ENV
+          DATE_OF_BUILD=$(date);
           echo "EPF: after checking out ${{ github.event.inputs.branch }}, Hash=$SRC_COMMIT_HASH"
-          echo "{\"commit\": \"${SRC_COMMIT_HASH}\", \"branch\": \"${{ github.event.inputs.branch }}\" }" > version.json
+          echo "{\"commit\": \"${SRC_COMMIT_HASH}\", \"branch\": \"${{ github.event.inputs.branch }}\", \"dateOfBuild\": \"${DATE_OF_BUILD}\" }" > version.json
           pwd
           ls -lR
 
