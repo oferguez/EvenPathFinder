@@ -1,4 +1,5 @@
 import FireWorkExtravaganza from './FireworkExtravaganza.js';
+import { loadPreferences } from './settings.js';
 
 class Game {
   constructor() {
@@ -7,7 +8,7 @@ class Game {
     this.currentPosition = [0, 0];
     this.previousPositions = [];
     this.movesTaken = 0;
-    this.numberType = 'evens';
+    this.numberType = 'Evens';
     this.bound = 100;
     this.effectSelector = 0;
   }
@@ -15,9 +16,8 @@ class Game {
   setupHandlers() {
     const newGameButton = document.getElementById('newGame');
     const resetGameButton = document.getElementById('resetGame');
-    const numberTypeSelect = document.getElementById('numberType');
 
-    if (!newGameButton || !resetGameButton || !numberTypeSelect) {
+    if (!newGameButton || !resetGameButton) {
       console.warn('Required DOM elements are missing. Cannot set up handlers at this time.');
       return;
     }
@@ -26,7 +26,8 @@ class Game {
 
     newGameButton.addEventListener('click', () => this.newGame());
     resetGameButton.addEventListener('click', () => this.resetGame());
-    numberTypeSelect.addEventListener('change', () => this.newGame());
+
+    this.newGame();
   }
 
   newGame() {
@@ -42,13 +43,16 @@ class Game {
   }
 
   initGame() {
-    this.boardSize = parseInt(document.getElementById('boardSize').value);
+    let preferences = loadPreferences();
+    this.boardSize = preferences.boardSize;
     if (isNaN(this.boardSize) || this.boardSize < 4 || this.boardSize > 12) {
       this.showFactMessage('Please enter a valid board size between 4 and 12.', 'red');
       return;
     }
 
-    this.numberType = document.getElementById('numberType').value;
+    this.numberType = preferences.numberType;
+    this.movesTaken = 0;
+    this.name = preferences.name;
     this.currentPosition = [0, 0];
     this.previousPositions = [];
     this.generateBoard();
@@ -142,9 +146,9 @@ class Game {
 
   randomValidNumber() {
     switch (this.numberType) {
-    case 'evens':
+    case 'Evens':
       return 2 * (1 + Math.floor(Math.random() * this.bound / 2));
-    case 'odds':
+    case 'Odds':
       return 1 + 2 * Math.floor(Math.random() * this.bound / 2);
     case 'Threepls':
       return 3 * (1 + Math.floor(Math.random() * this.bound / 3));
@@ -174,13 +178,13 @@ class Game {
   isValidNumber(num) {
     switch (this.numberType)
     {
-    case 'evens':
+    case 'Evens':
       if (num % 2 !== 0)
       {
         return false;
       }
       break;
-    case 'odds':
+    case 'Odds':
       if (num % 2 !== 1) 
       {
         return false;
@@ -257,7 +261,7 @@ class Game {
     this.triggerRainbowEffect(2500);
     this.triggerShakeEffect(2500);
     this.fireworksEffect(2500);
-    this.congratEffect('Well Done Shira!!!', 2500);
+    this.congratEffect(`Well Done ${this.name}!!!`, 2500);
   }
   
   triggerWrongMoveEffect() {
@@ -299,16 +303,16 @@ class Game {
   
   getRandomCongratulation() {
     const congratulations = [
-      'Great job, Shira!',
-      'Well done, Shira!',
-      'Awesome work, Shira!',
-      'You nailed it, Shira!',
-      'Bravo, Shira!',
-      'Fantastic, Shira!',
-      'Keep it up, Shira!',
-      'Amazing effort, Shira!',
-      'Way to go, Shira!',
-      'Impressive, Shira!'
+      `Great job, ${this.name}!`,
+      `Well done, ${this.name}!`,
+      `Awesome work, ${this.name}`,
+      `You nailed it, ${this.name}`,
+      `Bravo, ${this.name}!`,
+      `Fantastic, ${this.name}!`,
+      `Keep it up, ${this.name}!`,
+      `Amazing effort, ${this.name}!`,
+      `Way to go, ${this.name}!`,
+      `Impressive, ${this.name}!`
     ];
     return congratulations[Math.floor(Math.random() * congratulations.length)];
   } 
