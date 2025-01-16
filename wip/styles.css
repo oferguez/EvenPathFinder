@@ -220,7 +220,107 @@ iteration-count | direction | fill-mode | play-state | name */
   color: white;
 }
 
+
+#aboutSettings {
+  background-color: #6C757D;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#aboutSettings:hover {
+  background-color: #5A6268;
+}
+
+
+
 #cancelSettings {
   background-color: #f44336; /* Red */
   color: white;
 }
+
+/* Dialog Styles */
+dialog {
+  width: 80%;
+  max-width: 400px;
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  background: linear-gradient(to bottom, #f8fafc, #e0e7ff);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Container for content */
+.about-container {
+  text-align: center;
+}
+
+/* Header (Title) */
+dialog h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #4f46e5; /* Purple-ish blue for a friendly tone */
+}
+
+/* Main Text */
+dialog p {
+  font-size: 16px;
+  color: #374151; /* Soft black */
+  margin: 10px 0;
+}
+
+/* Footer */
+dialog footer {
+  font-size: 14px;
+  color: #1e3a8a; /* Navy blue for the contact details */
+  margin-top: 20px;
+}
+
+dialog footer a {
+  color: #2563eb; /* Bright blue for email link */
+  text-decoration: none;
+}
+
+dialog footer a:hover {
+  text-decoration: underline;
+}
+
+/* Close Button */
+#closeDialog {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #34d399; /* Green for a fun tone */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#closeDialog:hover {
+  background-color: #10b981; /* Darker green on hover */
+}
+
+/* Additional Style for Build Info */
+#buildInfo {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #6b7280; /* Gray tone for additional info */
+}
+
+
+/*👉dialog {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+dialog button {
+  margin-top: 10px;
+}
+
+👈*/
