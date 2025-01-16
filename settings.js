@@ -36,7 +36,7 @@ const currentUser = 'exampleUser';
 
 // DOM Elements
 const settingsButton = document.getElementById('settingsButton');
-const settingsModal = document.getElementById('settingsModal');
+const settingsDialog = document.getElementById('settingsDialog');
 const saveSettings = document.getElementById('saveSettings');
 const cancelSettings = document.getElementById('cancelSettings');
 const openAboutDialog = document.getElementById('aboutSettings');
@@ -62,14 +62,14 @@ function updateMainScreen() {
 // Open settings modal
 settingsButton.addEventListener('click', () => {
   fetch('version.json')
-  .then(response => response.json())
-  .then(data => {
-    versionInfo = data;
-  })
-  .catch(error => {
-    console.error('Failed to fetch version info:', error);
-    versionInfo = { commit: 'unknown commit', branch: 'unknown branch', date: 'unknown date' };
-  });  
+    .then(response => response.json())
+    .then(data => {
+      versionInfo = data;
+    })
+    .catch(error => {
+      console.error('Failed to fetch version info:', error);
+      versionInfo = { commit: 'unknown commit', branch: 'unknown branch', date: 'unknown date' };
+    });  
 
   const preferences = loadPreferences(currentUser);
 
@@ -79,8 +79,15 @@ settingsButton.addEventListener('click', () => {
   numberTypeInput.value = preferences.numberType;
   apiKeyInput.value = preferences.apiKey;
 
+  console.log('Populated form with preferences');
+
   // Show modal
-  settingsModal.classList.add('active');
+  // Check if the modal is hidden by CSS
+  const computedStyle = window.getComputedStyle(settingsDialog);
+  console.log('Modal display style:', computedStyle.display);
+  console.log('Modal visibility style:', computedStyle.visibility);
+  settingsDialog.showModal();
+  console.log('Modal shown');
   updateMainScreen();
 });
 
@@ -100,18 +107,18 @@ saveSettings.addEventListener('click', () => {
     newGameButton.click();
   }
 
-  settingsModal.classList.remove('active');
+  settingsDialog.close();
 });
 
 // Cancel changes
 cancelSettings.addEventListener('click', () => {
-  settingsModal.classList.remove('active');
+  settingsDialog.close();
 });
 
 openAboutDialog.addEventListener('click', () => {
   branch.textContent = `Branch: ${versionInfo.branch}`;
   commit.textContent = `Commit: ${versionInfo.commit}`;
-  buildDate.textContent = `Date of build: ${versionInfo.dateOfBuild}`
+  buildDate.textContent = `Date of build: ${versionInfo.dateOfBuild}`;
   aboutDialog.showModal();
 });
     
