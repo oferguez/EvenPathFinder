@@ -42,8 +42,10 @@ const cancelSettings = document.getElementById('cancelSettings');
 const openAboutDialog = document.getElementById('aboutSettings');
 const closeAboutDialog = document.getElementById('closeAboutDialog');
 const aboutDialog = document.getElementById('aboutDialog');
-const buildInfo = document.getElementById('buildInfo');
 const newGameButton = document.getElementById('newGame');
+const branch = document.getElementById('branch');
+const commit = document.getElementById('commit');
+const buildDate = document.getElementById('buildDate');
 
 // Form elements
 const nameInput = document.getElementById('name');
@@ -59,6 +61,16 @@ function updateMainScreen() {
 
 // Open settings modal
 settingsButton.addEventListener('click', () => {
+  fetch('version.json')
+  .then(response => response.json())
+  .then(data => {
+    versionInfo = data;
+  })
+  .catch(error => {
+    console.error('Failed to fetch version info:', error);
+    versionInfo = { commit: 'unknown commit', branch: 'unknown branch', date: 'unknown date' };
+  });  
+
   const preferences = loadPreferences(currentUser);
 
   // Populate the form with current preferences
@@ -97,17 +109,9 @@ cancelSettings.addEventListener('click', () => {
 });
 
 openAboutDialog.addEventListener('click', () => {
-  fetch('version.json')
-    .then(response => response.json())
-    .then(data => {
-      versionInfo = data;
-    })
-    .catch(error => {
-      console.error('Failed to fetch version info:', error);
-      versionInfo = { commit: 'unknown', branch: 'unknown' };
-    });  
-
-  buildInfo.textContent = `Branch: ${versionInfo.branch}, Commit: ${versionInfo.commit}`;
+  branch.textContent = `Branch: ${versionInfo.branch}`;
+  commit.textContent = `Commit: ${versionInfo.commit}`;
+  buildDate.textContent = `Date of build: ${versionInfo.dateOfBuild}`
   aboutDialog.showModal();
 });
     
