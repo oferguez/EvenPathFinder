@@ -1,4 +1,5 @@
 { 
   "commit": "dev commit",
-  "branch": "dev branch"
+  "branch": "dev branch",
+  "dateOfBuild": "dev date"
 }

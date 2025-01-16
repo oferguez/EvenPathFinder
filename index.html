@@ -69,8 +69,37 @@
         </form>
     </div>
 </div>
-  
-<dialog id="aboutDialog">
+
+<dialog id="aboutDialog" class="about-dialog">
+  <div class="about-container">
+    <header class="about-header">
+      <h2>About Path Finder</h2>
+    </header>
+    <main class="about-content">
+      <p>
+        Welcome to the Path Finder Game!
+      </p>
+      <p>
+        Your mission is to help find a path from the top-left corner to the bottom-right corner. Each step has to be of the right number type!
+      </p>
+    </main>
+    <footer class="about-footer">
+      <div>
+        <p>Game created by: <strong>Ofer Guez</strong></p>
+        <p>Contact: <a href="mailto:guez.ofer@gmail.com">guez.ofer@gmail.com</a></p>
+      </div>
+      <div>
+        <p id="buildInfo"><strong>Build Info:</strong></p>
+        <p id="commit">Commit Hash</p>
+        <p id="branch">Branch</p>
+        <p id="buildDate">Build Date</p>
+      </div>
+    </footer>
+    <button id="closeAboutDialog">Close</button>
+  </div>
+</dialog>
+
+<!-- <dialog id="aboutDialog">
   <div class="about-container">
     <h2>About Path Finder</h2>
     <p>
@@ -80,11 +109,14 @@
     <footer>
       <p>Game created by: <strong>Ofer Guez</strong></p>
       <p>Contact: <a href="mailto:guez.ofer@gmail.com">guez.ofer@gmail.com</a></p>
-      <p id="buildInfo"><strong>Build Info:</strong> Loading...</p>
+      <p id="buildInfo"><strong>Build Info:</strong></p>
+      <p id="commit">Commit Hash</p>
+      <p id="branch">Branch</p>
+      <p id="buildDate">Build Date</p>
     </footer>
     <button id="closeAboutDialog">Close</button>
   </div>
-</dialog>
+</dialog> -->
 
 <script type="module" src="settings.js"></script>
 
