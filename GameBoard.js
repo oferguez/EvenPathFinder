@@ -1,5 +1,5 @@
 import FireWorkExtravaganza from './FireworkExtravaganza.js';
-import { loadPreferences } from './settings.js'
+import { loadPreferences } from './settings.js';
 
 class Game {
   constructor() {
@@ -8,7 +8,7 @@ class Game {
     this.currentPosition = [0, 0];
     this.previousPositions = [];
     this.movesTaken = 0;
-    this.numberType = 'evens';
+    this.numberType = 'Evens';
     this.bound = 100;
     this.effectSelector = 0;
   }
@@ -16,9 +16,8 @@ class Game {
   setupHandlers() {
     const newGameButton = document.getElementById('newGame');
     const resetGameButton = document.getElementById('resetGame');
-    const numberTypeSelect = document.getElementById('numberType');
 
-    if (!newGameButton || !resetGameButton || !numberTypeSelect) {
+    if (!newGameButton || !resetGameButton) {
       console.warn('Required DOM elements are missing. Cannot set up handlers at this time.');
       return;
     }
@@ -27,7 +26,6 @@ class Game {
 
     newGameButton.addEventListener('click', () => this.newGame());
     resetGameButton.addEventListener('click', () => this.resetGame());
-    numberTypeSelect.addEventListener('change', () => this.newGame());
   }
 
   newGame() {
@@ -51,6 +49,7 @@ class Game {
     }
 
     this.numberType = preferences.numberType;
+    this.movesTaken = 0;
     this.name = preferences.name;
     this.currentPosition = [0, 0];
     this.previousPositions = [];
@@ -145,9 +144,9 @@ class Game {
 
   randomValidNumber() {
     switch (this.numberType) {
-    case 'evens':
+    case 'Evens':
       return 2 * (1 + Math.floor(Math.random() * this.bound / 2));
-    case 'odds':
+    case 'Odds':
       return 1 + 2 * Math.floor(Math.random() * this.bound / 2);
     case 'Threepls':
       return 3 * (1 + Math.floor(Math.random() * this.bound / 3));
@@ -177,13 +176,13 @@ class Game {
   isValidNumber(num) {
     switch (this.numberType)
     {
-    case 'evens':
+    case 'Evens':
       if (num % 2 !== 0)
       {
         return false;
       }
       break;
-    case 'odds':
+    case 'Odds':
       if (num % 2 !== 1) 
       {
         return false;

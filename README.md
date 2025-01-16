@@ -7,8 +7,8 @@
 # to do:
 
 * responsive
-* ~~choose odds/even/multiples~~
-* external config / config screen / personaliosation 
+* ~~choose Odds/even/multiples~~
+* ~~external config / config screen / personaliosation ~~
 * use of CGPT API:
   - on startup load list of congrats and hamster jokes
   - inline get jokes and congrats
