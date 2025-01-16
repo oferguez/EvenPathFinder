@@ -311,6 +311,29 @@ dialog footer a:hover {
   color: #6b7280; /* Gray tone for additional info */
 }
 
+/* Close Button */
+#closeDialog {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #34d399; /* Green for a fun tone */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#closeDialog:hover {
+  background-color: #10b981; /* Darker green on hover */
+}
+
+/* Additional Style for Build Info */
+#buildInfo {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #6b7280; /* Gray tone for additional info */
+}
+
 
 /*👉dialog {
   border: 1px solid #ccc;
