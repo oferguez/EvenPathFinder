@@ -26,6 +26,8 @@ class Game {
 
     newGameButton.addEventListener('click', () => this.newGame());
     resetGameButton.addEventListener('click', () => this.resetGame());
+
+    this.newGame();
   }
 
   newGame() {
