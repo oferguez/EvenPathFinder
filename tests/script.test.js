@@ -16,8 +16,8 @@ beforeEach(() => {
     <button id="resetGame">Reset Game</button>
     <label for="numberType">Choose a number type</label>
       <select id="numberType" name="numType">
-        <option value="evens">Evens</option>
-        <option value="odds">Odds</option>
+        <option value="Evens">Evens</option>
+        <option value="Odds">Odds</option>
         <option value="Threepls">Multiples of 3</option>
         <option value="Fifths">Multiples of 5</option>
       </select>
