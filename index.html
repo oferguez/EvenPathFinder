@@ -16,14 +16,14 @@
   <div id="winEffect"></div> 
 
   <div id="controls">
-    <label id="greetPlayer">(PlayerName)</label>
+    <label id="greet-player">(PlayerName)</label>
   </div>
 
-  <div id="gameBoard">
+  <div id="game-board">
   </div>
   <div id="moveMessages"></div>
   <div id="jokeMessages"></div>
-  <div id="factMessages"></div>
+  <div id="fact-messages"></div>
 
   <div id="congratulation-message"></div>
 
@@ -34,22 +34,22 @@
   </div>
   
   <script type="module" src="GameBoard.js"></script>
-  <dialog id="settingsDialog" class="dialog">
+  <dialog id="settings-dialog" class="dialog">
       <div class="modal-header">
           <h2>Settings</h2>
       </div>
-      <form id="settingsForm">
+      <form id="settings-form">
           <div class="form-group">
               <label for="name">Name:</label>
               <input type="text" id="name" />
           </div>
           <div class="form-group">
-              <label for="boardSize">Board Size:</label>
-              <input type="number" id="boardSize" value="4" />
+              <label for="board-size">Board Size:</label>
+              <input type="number" id="board-size" value="4" />
           </div>
           <div class="form-group">
-              <label for="numberType">Number Type:</label>
-              <select id="numberType">
+              <label for="number-type">Number Type:</label>
+              <select id="number-type">
                   <option value="Evens">Evens</option>
                   <option value="Odds">Odds</option>
                   <option value="Threepls">Multiples of 3</option>
@@ -57,18 +57,18 @@
               </select>
           </div>
           <div class="form-group">
-              <label for="apiKey">API Key:</label>
-              <input type="text" id="apiKey" />
+              <label for="api-key">API Key:</label>
+              <input type="text" id="api-key" />
           </div>
           <div class="modal-footer">
-              <button type="button" id="saveSettings" class="modal-button">Save</button>
-              <button type="button" id="aboutSettings" class="modal-button">About</button>
-              <button type="button" id="cancelSettings" class="modal-button">Cancel</button>
+              <button type="button" id="save-settings" class="modal-button">Save</button>
+              <button type="button" id="about-settings" class="modal-button">About</button>
+              <button type="button" id="cancel-settings" class="modal-button">Cancel</button>
           </div>
       </form>
 </dialog>
 
-<dialog id="aboutDialog" class="about-dialog">
+<dialog id="about-dialog" class="about-dialog">
   <div class="about-container">
     <header class="about-header">
       <h2>About Path Finder</h2>
@@ -87,13 +87,13 @@
         <p>Contact: <a href="mailto:guez.ofer@gmail.com">guez.ofer@gmail.com</a></p>
       </div>
       <div>
-        <p id="buildInfo"><strong>Build Info:</strong></p>
+        <p id="build-info"><strong>Build Info:</strong></p>
         <p id="commit">Commit Hash</p>
         <p id="branch">Branch</p>
-        <p id="buildDate">Build Date</p>
+        <p id="build-date">Build Date</p>
       </div>
     </footer>
-    <button id="closeAboutDialog">Close</button>
+    <button id="close-about-dialog">Close</button>
   </div>
 </dialog>
 

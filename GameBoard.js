@@ -67,7 +67,7 @@ class Game {
   initGame() {
     let preferences = loadPreferences();
     this.boardSize = preferences.boardSize;
-    if (isNaN(this.boardSize) || this.boardSize < 4 || this.boardSize > 12) {
+    if (isNaN(this.boardSize) || this.boardSize < 4 || this.boardBize > 12) {
       this.showFactMessage('Please enter a valid board size between 4 and 12.', 'red');
       return;
     }
@@ -127,7 +127,7 @@ class Game {
   }
 
   renderBoard() {
-    const gameBoard = document.getElementById('gameBoard');
+    const gameBoard = document.getElementById('game-board');
     const currentBoard = gameBoard.querySelectorAll('div, br');
     Array.from(currentBoard).forEach((e) => e.remove());
 
@@ -186,7 +186,7 @@ class Game {
   }
 
   showFactMessage(text, color) {
-    const factMessages = document.getElementById('factMessages');
+    const factMessages = document.getElementById('fact-messages');
     factMessages.style.color = color;
     factMessages.textContent = text;
   }
@@ -291,7 +291,7 @@ class Game {
   }
   
   triggerShakeEffect(msLength) {
-    const gameBoard = document.getElementById('gameBoard');
+    const gameBoard = document.getElementById('game-board');
     gameBoard.classList.remove('shake');
     gameBoard.classList.add('shake');
   

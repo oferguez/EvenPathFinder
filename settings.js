@@ -36,27 +36,27 @@ const currentUser = 'exampleUser';
 
 // DOM Elements
 const settingsButton = document.getElementById('settingsButton');
-const settingsDialog = document.getElementById('settingsDialog');
-const saveSettings = document.getElementById('saveSettings');
-const cancelSettings = document.getElementById('cancelSettings');
-const openAboutDialog = document.getElementById('aboutSettings');
-const closeAboutDialog = document.getElementById('closeAboutDialog');
-const aboutDialog = document.getElementById('aboutDialog');
-const newGameButton = document.getElementById('newGame');
+const settingsDialog = document.getElementById('settings-dialog');
+const saveSettings = document.getElementById('save-settings');
+const cancelSettings = document.getElementById('cancel-settings');
+const openAboutDialog = document.getElementById('about-settings');
+const closeAboutDialog = document.getElementById('close-about-dialog');
+const aboutDialog = document.getElementById('about-dialog');
+const newGameButton = document.getElementById('new-game');
 const branch = document.getElementById('branch');
 const commit = document.getElementById('commit');
-const buildDate = document.getElementById('buildDate');
+const buildDate = document.getElementById('build-date');
 
 // Form elements
 const nameInput = document.getElementById('name');
-const boardSizeInput = document.getElementById('boardSize');
-const numberTypeInput = document.getElementById('numberType');
-const apiKeyInput = document.getElementById('apiKey');
+const boardSizeInput = document.getElementById('board-size');
+const numberTypeInput = document.getElementById('number-type');
+const apiKeyInput = document.getElementById('api-key');
 let versionInfo = {};
 
 function updateMainScreen() {
   let preferences = loadPreferences();
-  document.getElementById('greetPlayer').textContent = `Hello ${preferences.name}! You need to get to the bottom right square, clicking on ${preferences.numberType}`;
+  document.getElementById('greet-player').textContent = `Hello ${preferences.name}! You need to get to the bottom right square, clicking on ${preferences.numberType}`;
 }
 
 // Open settings modal
