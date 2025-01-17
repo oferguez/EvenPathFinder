@@ -1,8 +1,8 @@
+/* stylelint-disable declaration-block-single-line-max-declarations */
   body { 
     font-family: Arial, sans-serif; 
     text-align: center; 
     background-color: #f0f8ff; 
-
     margin: 0;
     overflow: hidden;
   }
@@ -16,7 +16,7 @@
   
   input, button { padding: 10px; margin: 5px; }
 
-  #gameBoard {
+  #game-board {
     position: relative;
     margin: auto;
     width: 75%;
@@ -26,7 +26,7 @@
   }
 
   /* debugging button */
-  #testEffect {
+  #test-effect {
       position: absolute;
       top: 50%; /* Vertically center */
       right: 0; /* Align to the right edge */
@@ -34,7 +34,7 @@
   }
 
 
-  #congratulationMessage {
+  #congratulation-message {
     position: absolute;
     bottom: 10%;
     left: 50%; /* Move the element's left edge to the center */
@@ -42,23 +42,24 @@
     font-size: 6rem;
     font-weight: bold;
     color: #ff4500; /* Orange-Red color for visibility */
-    animation: slideUp 2s forwards cubic-bezier(0.42, 0, 0.58, 1);
+    animation: slide-up 2s forwards cubic-bezier(0.42, 0, 0.58, 1);
     pointer-events: none;
   }
 
-  @keyframes slideUp 
+  @keyframes slide-up 
   {
     0% {
       bottom: 10%;
       opacity: 1;
     }
+
     100% {
       bottom: 90%;
       opacity: 0
     }
   }
 
-  .Child {
+  .child {
     position: absolute;  
     pointer-events: none;
   }
@@ -99,7 +100,7 @@ iteration-count | direction | fill-mode | play-state | name */
     100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
   }
 
-  .rainbow-background {
+/* 👉  .rainbow-background {
     width: 100vw;
     height: 100vh;
     background: repeatinglinear-gradient(
@@ -118,17 +119,20 @@ iteration-count | direction | fill-mode | play-state | name */
       rgba(75, 0, 130, .5) 85.68%,
       rgba(238, 130, 238, .5) 85.68%,
       rgba(238, 130, 238, .5) 100%);
-    background-size: 40% 40%; /* Expand background for smooth animation */
-    animation: rainbow 1s infinite linear; /* Smooth infinite loop */
+    background-size: 40% 40%; ➡ Expand background for smooth animation ⬅
+    animation: rainbow 1s infinite linear; ➡ Smooth infinite loop ⬅
   }
-  
+👈 */
+
   @keyframes rainbow {
     0% {
       background-position: 0% 50%;
     }
+
     50% {
       background-position: 100% 50%;
     }
+
     100% {
       background-position: 0% 50%;
     }
@@ -146,6 +150,77 @@ iteration-count | direction | fill-mode | play-state | name */
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
+}
+
+
+/* Dialog Styles */
+dialog {
+  width: fit-content;
+  max-width: 400px;
+  border: none;
+  border-radius: 10px;
+  padding: 20px;
+  background: linear-gradient(to bottom, #f8fafc, #e0e7ff);
+  box-shadow: 0 8px 16px rgb(0 0 0 / 20%);
+  font-family: Arial, sans-serif;
+}
+
+/* Container for content */
+.about-container {
+  text-align: center;
+}
+
+/* Header (Title) */
+dialog h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #4f46e5; /* Purple-ish blue for a friendly tone */
+}
+
+/* Main Text */
+dialog p {
+  font-size: 16px;
+  color: #374151; /* Soft black */
+  margin: 10px 0;
+}
+
+/* Footer */
+dialog footer {
+  font-size: 14px;
+  color: #1e3a8a; /* Navy blue for the contact details */
+  margin-top: 20px;
+}
+
+dialog footer a {
+  color: #2563eb; /* Bright blue for email link */
+  text-decoration: none;
+}
+
+dialog footer a:hover {
+  text-decoration: underline;
+}
+
+/* Additional Style for Build Info */
+#build-info {
+  margin-top: 10px;
+  font-size: 14px;
+  color: #6b7280; /* Gray tone for additional info */
+}
+
+/* Close Button */
+#close-dialog {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background-color: #34d399; /* Green for a fun tone */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#close-dialog:hover {
+  background-color: #10b981; /* Darker green on hover */
 }
 
 .modal-header h2 {
@@ -196,13 +271,13 @@ iteration-count | direction | fill-mode | play-state | name */
   cursor: pointer;
 }
 
-#saveSettings {
+#save-settings {
   background-color: #4CAF50; /* Green */
   color: white;
 }
 
 
-#aboutSettings {
+#about-settings {
   background-color: #6C757D;
   color: white;
   border: none;
@@ -211,112 +286,19 @@ iteration-count | direction | fill-mode | play-state | name */
   cursor: pointer;
 }
 
-#aboutSettings:hover {
+#about-settings:hover {
   background-color: #5A6268;
 }
 
 
 
-#cancelSettings {
+#cancel-settings {
   background-color: #f44336; /* Red */
   color: white;
 }
 
-/* Dialog Styles */
+/* 
 dialog {
-  width: fit-content;
-  max-width: 400px;
-  border: none;
-  border-radius: 10px;
-  padding: 20px;
-  background: linear-gradient(to bottom, #f8fafc, #e0e7ff);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  font-family: 'Arial', sans-serif;
-}
-
-/* Container for content */
-.about-container {
-  text-align: center;
-}
-
-/* Header (Title) */
-dialog h2 {
-  font-size: 24px;
-  margin-bottom: 10px;
-  color: #4f46e5; /* Purple-ish blue for a friendly tone */
-}
-
-/* Main Text */
-dialog p {
-  font-size: 16px;
-  color: #374151; /* Soft black */
-  margin: 10px 0;
-}
-
-/* Footer */
-dialog footer {
-  font-size: 14px;
-  color: #1e3a8a; /* Navy blue for the contact details */
-  margin-top: 20px;
-}
-
-dialog footer a {
-  color: #2563eb; /* Bright blue for email link */
-  text-decoration: none;
-}
-
-dialog footer a:hover {
-  text-decoration: underline;
-}
-
-/* Close Button */
-#closeDialog {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #34d399; /* Green for a fun tone */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-#closeDialog:hover {
-  background-color: #10b981; /* Darker green on hover */
-}
-
-/* Additional Style for Build Info */
-#buildInfo {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #6b7280; /* Gray tone for additional info */
-}
-
-/* Close Button */
-#closeDialog {
-  margin-top: 20px;
-  padding: 10px 20px;
-  background-color: #34d399; /* Green for a fun tone */
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 14px;
-  cursor: pointer;
-}
-
-#closeDialog:hover {
-  background-color: #10b981; /* Darker green on hover */
-}
-
-/* Additional Style for Build Info */
-#buildInfo {
-  margin-top: 10px;
-  font-size: 14px;
-  color: #6b7280; /* Gray tone for additional info */
-}
-
-
-/*👉dialog {
   border: 1px solid #ccc;
   border-radius: 5px;
   padding: 20px;
@@ -325,6 +307,4 @@ dialog footer a:hover {
 
 dialog button {
   margin-top: 10px;
-}
-
-👈*/
+} */

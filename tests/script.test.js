@@ -28,7 +28,7 @@ beforeEach(() => {
   <div id="moveMessages"></div>
   <div id="jokeMessages"></div>
   <div id="factMessages"></div>
-  <div id="congratulationMessage"></div>
+  <div id="congratulation-message"></div>
 </body>`;
   jest.resetModules(); // Clear module cache to ensure fresh import
 });
