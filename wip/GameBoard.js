@@ -22,10 +22,32 @@ class Game {
       return;
     }
 
-    console.log('Setting up handlers');
+    console.log('Setting up game');
 
     newGameButton.addEventListener('click', () => this.newGame());
     resetGameButton.addEventListener('click', () => this.resetGame());
+
+    // Save the original methods
+    const originalGetElementById = document.getElementById;
+    const originalQuerySelector = document.querySelector;
+
+    // Override document.getElementById
+    document.getElementById = function(id) {
+      const element = originalGetElementById.call(document, id);
+      if (!element) {
+        throw new Error(`Element with ID "${id}" not found`);
+      }
+      return element;
+    };
+
+    // Override document.querySelector
+    document.querySelector = function(selector) {
+      const element = originalQuerySelector.call(document, selector);
+      if (!element) {
+        throw new Error(`Element with selector "${selector}" not found`);
+      }
+      return element;
+    };
 
     this.newGame();
   }
@@ -45,7 +67,7 @@ class Game {
   initGame() {
     let preferences = loadPreferences();
     this.boardSize = preferences.boardSize;
-    if (isNaN(this.boardSize) || this.boardSize < 4 || this.boardSize > 12) {
+    if (isNaN(this.boardSize) || this.boardSize < 4 || this.boardBize > 12) {
       this.showFactMessage('Please enter a valid board size between 4 and 12.', 'red');
       return;
     }
@@ -105,7 +127,7 @@ class Game {
   }
 
   renderBoard() {
-    const gameBoard = document.getElementById('gameBoard');
+    const gameBoard = document.getElementById('game-board');
     const currentBoard = gameBoard.querySelectorAll('div, br');
     Array.from(currentBoard).forEach((e) => e.remove());
 
@@ -164,7 +186,7 @@ class Game {
   }
 
   showFactMessage(text, color) {
-    const factMessages = document.getElementById('factMessages');
+    const factMessages = document.getElementById('fact-messages');
     factMessages.style.color = color;
     factMessages.textContent = text;
   }
@@ -269,7 +291,7 @@ class Game {
   }
   
   triggerShakeEffect(msLength) {
-    const gameBoard = document.getElementById('gameBoard');
+    const gameBoard = document.getElementById('game-board');
     gameBoard.classList.remove('shake');
     gameBoard.classList.add('shake');
   
@@ -294,7 +316,7 @@ class Game {
   }
   
   congratEffect(message = null, msLen = null) {
-    const congrats = document.getElementById('congratulationMessage');
+    const congrats = document.getElementById('congratulation-message');
     congrats.textContent = message || this.getRandomCongratulation();
     const animation = congrats.getAnimations()[0];
     animation.cancel();
