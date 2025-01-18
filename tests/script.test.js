@@ -7,28 +7,28 @@ beforeEach(() => {
 
   <h1>Math Adventure Game</h1>
 
-  <div id="winEffect"></div> 
+  <div id="win-effect"></div> 
 
   <div id="controls">
-    <label for="boardSize">Board Size (4-12):</label>
-    <input type="number" id="boardSize" min="4" max="12" value="8">
-    <button id="newGame">New Game</button>
-    <button id="resetGame">Reset Game</button>
-    <label for="numberType">Choose a number type</label>
-      <select id="numberType" name="numType">
+    <label for="board-size">Board Size (4-12):</label>
+    <input type="number" id="board-size" min="4" max="12" value="8">
+    <button id="new-game">New Game</button>
+    <button id="reset-game">Reset Game</button>
+    <label for="number-type">Choose a number type</label>
+      <select id="number-type" name="numType">
         <option value="Evens">Evens</option>
         <option value="Odds">Odds</option>
         <option value="Threepls">Multiples of 3</option>
         <option value="Fifths">Multiples of 5</option>
       </select>
   </div>
-  <div id="gameBoard">
+  <div id="game-board">
     <!-- <button id="testEffect">TE</button>  -->
   </div>
-  <div id="moveMessages"></div>
-  <div id="jokeMessages"></div>
-  <div id="factMessages"></div>
-  <div id="congratulationMessage"></div>
+  <div id="move-messages"></div>
+  <div id="joke-messages"></div>
+  <div id="fact-messages"></div>
+  <div id="congratulation-message"></div>
 </body>`;
   jest.resetModules(); // Clear module cache to ensure fresh import
 });
@@ -58,7 +58,7 @@ test('setupHandlers attaches event listeners correctly', () => {
   setupHandlers();
 
   // Trigger events and verify handlers are called
-  document.getElementById('newGame').click();
+  document.getElementById('new-game').click();
 
   const N = gameState.boardSize;
   expect(N).toBePositive();

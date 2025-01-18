@@ -11,7 +11,7 @@ export default class FireworkExtravaganza {
     this.parentHeight = this.parent.clientHeight;
   }
   cleanup() {
-    const currentFireworks = document.getElementsByClassName('Child');
+    const currentFireworks = document.getElementsByClassName('child');
     Array.from(currentFireworks).forEach(fw => fw.remove());
   }
   fireAll() {
@@ -20,13 +20,13 @@ export default class FireworkExtravaganza {
       this.fire(fw);
     }
     setTimeout(() => {
-      this.cleanup();          }, this.animationLen);
-        
+      this.cleanup();          
+    }, this.animationLen);      
   }
   fire(fw) {
     const firework = document.createElement('div');
-    firework.classList.add('Child');
-    firework.id = `Child${fw}`;
+    firework.classList.add('child');
+    firework.id = `child${fw}`;
     this.parent.appendChild(firework);
     
     let positioning = this.setPositioning();

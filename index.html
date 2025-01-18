@@ -13,64 +13,62 @@
 
   <h1>Math Adventure Game</h1>
 
-  <div id="winEffect"></div> 
+  <div id="win-effect"></div> 
 
   <div id="controls">
-    <label id="greetPlayer">(PlayerName)</label>
+    <label id="greet-player">(PlayerName)</label>
   </div>
 
-  <div id="gameBoard">
+  <div id="game-board">
   </div>
-  <div id="moveMessages"></div>
-  <div id="jokeMessages"></div>
-  <div id="factMessages"></div>
+  <div id="move-messages"></div>
+  <div id="joke-messages"></div>
+  <div id="fact-messages"></div>
 
-  <div id="congratulationMessage"></div>
+  <div id="congratulation-message"></div>
 
   <div id="controls">
-    <button id="newGame">New Game</button>
-    <button id="resetGame">Reset Game</button>
-    <button id="settingsButton">Settings</button>
+    <button id="new-game">New Game</button>
+    <button id="reset-game">Reset Game</button>
+    <button id="settings-button">Settings</button>
   </div>
   
   <script type="module" src="GameBoard.js"></script>
-  <div id="settingsModal" class="modal">
-    <div class="modal-content">
-        <div class="modal-header">
-            <h2>Settings</h2>
-        </div>
-        <form id="settingsForm">
-            <div class="form-group">
-                <label for="name">Name:</label>
-                <input type="text" id="name" />
-            </div>
-            <div class="form-group">
-                <label for="boardSize">Board Size:</label>
-                <input type="number" id="boardSize" value="4" />
-            </div>
-            <div class="form-group">
-                <label for="numberType">Number Type:</label>
-                <select id="numberType">
-                    <option value="Evens">Evens</option>
-                    <option value="Odds">Odds</option>
-                    <option value="Threepls">Multiples of 3</option>
-                    <option value="Fifths">Multiples of 5</option>
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="apiKey">API Key:</label>
-                <input type="text" id="apiKey" />
-            </div>
-            <div class="modal-footer">
-                <button type="button" id="saveSettings" class="modal-button">Save</button>
-                <button type="button" id="aboutSettings" class="modal-button">About</button>
-                <button type="button" id="cancelSettings" class="modal-button">Cancel</button>
-            </div>
-        </form>
-    </div>
-</div>
+  <dialog id="settings-dialog" class="dialog">
+      <div class="modal-header">
+          <h2>Settings</h2>
+      </div>
+      <form id="settings-form">
+          <div class="form-group">
+              <label for="name">Name:</label>
+              <input type="text" id="name" />
+          </div>
+          <div class="form-group">
+              <label for="board-size">Board Size:</label>
+              <input type="number" id="board-size" min="4" max="12" value="6" />
+          </div>
+          <div class="form-group">
+              <label for="number-type">Number Type:</label>
+              <select id="number-type">
+                  <option value="Evens">Evens</option>
+                  <option value="Odds">Odds</option>
+                  <option value="Threepls">Multiples of 3</option>
+                  <option value="Fifths">Multiples of 5</option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label for="api-key">API Key:</label>
+              <input type="text" id="api-key" />
+          </div>
+          <div class="modal-footer">
+              <button type="button" id="save-settings" class="modal-button">Save</button>
+              <button type="button" id="about-settings" class="modal-button">About</button>
+              <button type="button" id="cancel-settings" class="modal-button">Cancel</button>
+          </div>
+      </form>
+</dialog>
 
-<dialog id="aboutDialog" class="about-dialog">
+<dialog id="about-dialog" class="about-dialog">
   <div class="about-container">
     <header class="about-header">
       <h2>About Path Finder</h2>
@@ -89,34 +87,15 @@
         <p>Contact: <a href="mailto:guez.ofer@gmail.com">guez.ofer@gmail.com</a></p>
       </div>
       <div>
-        <p id="buildInfo"><strong>Build Info:</strong></p>
+        <p id="build-info"><strong>Build Info:</strong></p>
         <p id="commit">Commit Hash</p>
         <p id="branch">Branch</p>
-        <p id="buildDate">Build Date</p>
+        <p id="build-date">Build Date</p>
       </div>
     </footer>
-    <button id="closeAboutDialog">Close</button>
+    <button id="close-about-dialog">Close</button>
   </div>
 </dialog>
-
-<!-- <dialog id="aboutDialog">
-  <div class="about-container">
-    <h2>About Path Finder</h2>
-    <p>
-      Welcome to the Path Finder Game! <br><br>
-      Your mission is to help find a path from the top-left corner to the bottom-right corner. Each step has to be of the right number type! 
-    </p>
-    <footer>
-      <p>Game created by: <strong>Ofer Guez</strong></p>
-      <p>Contact: <a href="mailto:guez.ofer@gmail.com">guez.ofer@gmail.com</a></p>
-      <p id="buildInfo"><strong>Build Info:</strong></p>
-      <p id="commit">Commit Hash</p>
-      <p id="branch">Branch</p>
-      <p id="buildDate">Build Date</p>
-    </footer>
-    <button id="closeAboutDialog">Close</button>
-  </div>
-</dialog> -->
 
 <script type="module" src="settings.js"></script>
 
