@@ -35,7 +35,7 @@ function getDefaultPreferences() {
 const currentUser = 'exampleUser';
 
 // DOM Elements
-const settingsButton = document.getElementById('settingsButton');
+const settingsButton = document.getElementById('settings-button');
 const settingsDialog = document.getElementById('settings-dialog');
 const saveSettings = document.getElementById('save-settings');
 const cancelSettings = document.getElementById('cancel-settings');

@@ -14,8 +14,8 @@ class Game {
   }
 
   setupHandlers() {
-    const newGameButton = document.getElementById('newGame');
-    const resetGameButton = document.getElementById('resetGame');
+    const newGameButton = document.getElementById('new-game');
+    const resetGameButton = document.getElementById('reset-game');
 
     if (!newGameButton || !resetGameButton) {
       console.warn('Required DOM elements are missing. Cannot set up handlers at this time.');
@@ -192,7 +192,7 @@ class Game {
   }
 
   showMoveMessages(text, color) {
-    const moveMessages = document.getElementById('moveMessages');
+    const moveMessages = document.getElementById('move-messages');
     moveMessages.style.color = color;
     moveMessages.textContent = text;
   }
@@ -301,7 +301,7 @@ class Game {
   }
   
   triggerRainbowEffect(msLength) {
-    const winEffect = document.getElementById('winEffect');
+    const winEffect = document.getElementById('win-effect');
     winEffect.classList.add('rainbow-dance-background');
   
     setTimeout(() => {
