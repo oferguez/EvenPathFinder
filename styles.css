@@ -72,9 +72,6 @@
     80% { transform: translateX(0); }
   }
 
-/* @keyframes duration | easing-function | delay |
-iteration-count | direction | fill-mode | play-state | name */
-
   .shake {
     animation: shake 0.05s ease-in-out infinite;
   }
@@ -100,30 +97,6 @@ iteration-count | direction | fill-mode | play-state | name */
     100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
   }
 
-/* 👉  .rainbow-background {
-    width: 100vw;
-    height: 100vh;
-    background: repeatinglinear-gradient(
-      90deg,
-      rgba(255, 0, 0, .5) 0%,
-      rgba(255, 0, 0, .5) 14.28%,
-      rgba(255, 165, 0, .5) 14.28%,
-      rgba(255, 165, 0, .5) 28.56%,
-      rgba(255, 255, 0, .5) 28.56%,
-      rgba(255, 255, 0, .5) 42.84%,
-      rgba(0, 255, 0, .5) 42.84%,
-      rgba(0, 255, 0, .5) 57.12%,
-      rgba(0, 0, 255, .5) 57.12%,
-      rgba(0, 0, 255, .5) 71.4%,
-      rgba(75, 0, 130, .5) 71.4%,
-      rgba(75, 0, 130, .5) 85.68%,
-      rgba(238, 130, 238, .5) 85.68%,
-      rgba(238, 130, 238, .5) 100%);
-    background-size: 40% 40%; ➡ Expand background for smooth animation ⬅
-    animation: rainbow 1s infinite linear; ➡ Smooth infinite loop ⬅
-  }
-👈 */
-
   @keyframes rainbow {
     0% {
       background-position: 0% 50%;
@@ -137,13 +110,10 @@ iteration-count | direction | fill-mode | play-state | name */
       background-position: 0% 50%;
     }
   }
-  
-
 
 .modal.active {
   display: flex;
 }
-
 
 .modal-header {
   display: flex;
@@ -151,7 +121,6 @@ iteration-count | direction | fill-mode | play-state | name */
   align-items: center;
   margin-bottom: 20px;
 }
-
 
 /* Dialog Styles */
 dialog {
@@ -276,7 +245,6 @@ dialog footer a:hover {
   color: white;
 }
 
-
 #about-settings {
   background-color: #6C757D;
   color: white;
@@ -290,21 +258,7 @@ dialog footer a:hover {
   background-color: #5A6268;
 }
 
-
-
 #cancel-settings {
   background-color: #f44336; /* Red */
   color: white;
 }
-
-/* 
-dialog {
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-dialog button {
-  margin-top: 10px;
-} */
