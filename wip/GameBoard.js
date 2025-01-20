@@ -128,10 +128,14 @@ class Game {
 
   renderBoard() {
     const gameBoard = document.getElementById('game-board');
-    const currentBoard = gameBoard.querySelectorAll('div, br');
-    Array.from(currentBoard).forEach((e) => e.remove());
+    const currentCells = gameBoard.querySelectorAll('div, br');
+    gameBoard.style.setProperty('--size', this.boardSize); // set css variable
+
+    Array.from(currentCells).forEach((e) => e.remove());
 
     for (let i = 0; i < this.boardSize; i++) {
+      const row = document.createElement('div');
+      row.className = 'row';                    
       for (let j = 0; j < this.boardSize; j++) {
         const cell = document.createElement('div');
         cell.className = 'cell';
@@ -139,9 +143,8 @@ class Game {
 
         if (i === this.currentPosition[0] && j === this.currentPosition[1]) {
           cell.classList.add('highlight-current');
-        } else if (
-          this.previousPositions.some((pos) => pos[0] === i && pos[1] === j)
-        ) {
+        } 
+        else if (this.previousPositions.some((pos) => pos[0] === i && pos[1] === j))  {
           cell.classList.add('highlight-previous');
         }
 
@@ -151,9 +154,9 @@ class Game {
           cell.classList.add('blocked-move');
         }
 
-        gameBoard.appendChild(cell);
+        row.appendChild(cell);
       }
-      gameBoard.appendChild(document.createElement('br'));
+      gameBoard.appendChild(row);
     }
 
     this.showMoveMessages(`Moves taken: ${this.movesTaken}`, 'blue');
