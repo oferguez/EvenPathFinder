@@ -1,115 +1,178 @@
 /* stylelint-disable declaration-block-single-line-max-declarations */
-  body { 
-    font-family: Arial, sans-serif; 
-    text-align: center; 
-    background-color: #f0f8ff; 
-    margin: 0;
-    overflow: hidden;
-  }
+body {
+  font-family: Arial, sans-serif;
+  text-align: center;
+  background-color: #f0f8ff;
+  margin: 0;
+  height: 100vh; /* Full viewport height */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  overflow: hidden;
+}
 
-  .cell {width: 50px;height: 50px;line-height: 50px;border: 1px solid #333;display: inline-block;cursor: crosshair;font-size: 18px;background-color: #fff;color: #000;}
-  .cell.highlight-current { background-color: #FF1493; cursor: not-allowed; }
-  .cell.highlight-previous { background-color: #FFB6C1; }
-  .cell.blocked-move {cursor: not-allowed;}
-  #messages { margin-top: 20px; font-size: 16px; color: green; }
-  #controls { margin-top: 20px; }
-  
-  input, button { padding: 10px; margin: 5px; }
+.game-container {
+  display: flex;
+  flex-direction: column; /* Stack rows vertically */
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  width: auto;
+}
 
-  #game-board {
-    position: relative;
-    margin: auto;
-    width: 75%;
-    height: 75%;
-    margin-top: 40px;
-    margin-bottom: 20px;
-  }
+#game-board {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center cells horizontally */
+  align-items: center; /* Optional: Align cells vertically within rows */
+  width: fit-content; /* Ensure width adapts to content */
+  margin: 0 auto; 
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
 
-  /* debugging button */
-  #test-effect {
-      position: absolute;
-      top: 50%; /* Vertically center */
-      right: 0; /* Align to the right edge */
-      transform: translateY(-50%); /* Center vertically */  
-  }
+.row {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  gap: 0;
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.cell {
+  aspect-ratio: 1;
+  width: min(max(30px, 90vw / var(--size)), 50px);
+  height: min(max(30px, 90vw / var(--size)), 50px);
+  font-size: min(max(16px, 90vw / (var(--size) * 2.5)), 24px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #333;
+  background-color: #fff;
+  color: #000;
+  cursor: crosshair;
+  flex: 0 0 auto;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
 
 
-  #congratulation-message {
+.cell.highlight-current {
+  background-color: #FF1493;
+  cursor: not-allowed;
+}
+
+.cell.highlight-previous {
+  background-color: #FFB6C1;
+}
+
+.cell.blocked-move {
+  cursor: not-allowed;
+}
+
+#messages {
+  margin-top: 20px;
+  font-size: 16px;
+  color: green;
+}
+
+#controls 
+{ 
+  margin-top: 20px; 
+}
+
+input, button 
+{ 
+  padding: 10px; 
+  margin: 5px; 
+}
+
+/* debugging button */
+#test-effect {
     position: absolute;
+    top: 50%; /* Vertically center */
+    right: 0; /* Align to the right edge */
+    transform: translateY(-50%); /* Center vertically */  
+}
+
+
+#congratulation-message {
+  position: absolute;
+  bottom: 10%;
+  left: 50%; /* Move the element's left edge to the center */
+  transform: translateX(-50%); /* Adjust to center the element itself */
+  font-size: 6rem;
+  font-weight: bold;
+  color: #ff4500; /* Orange-Red color for visibility */
+  animation: slide-up 2s forwards cubic-bezier(0.42, 0, 0.58, 1);
+  pointer-events: none;
+}
+
+@keyframes slide-up 
+{
+  0% {
     bottom: 10%;
-    left: 50%; /* Move the element's left edge to the center */
-    transform: translateX(-50%); /* Adjust to center the element itself */
-    font-size: 6rem;
-    font-weight: bold;
-    color: #ff4500; /* Orange-Red color for visibility */
-    animation: slide-up 2s forwards cubic-bezier(0.42, 0, 0.58, 1);
-    pointer-events: none;
+    opacity: 1;
   }
 
-  @keyframes slide-up 
-  {
-    0% {
-      bottom: 10%;
-      opacity: 1;
-    }
+  100% {
+    bottom: 90%;
+    opacity: 0
+  }
+}
 
-    100% {
-      bottom: 90%;
-      opacity: 0
-    }
+.child {
+  position: absolute;  
+  pointer-events: none;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }   
+  20% { transform: translateX(-15px); }
+  40% { transform: translateX(0); }
+  60% { transform: translateX(15px); }
+  80% { transform: translateX(0); }
+}
+
+.shake {
+  animation: shake 0.05s ease-in-out infinite;
+}
+
+.background-red {
+  background-color: red;
+}
+
+#shira {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  font-size: 3rem;
+  font-weight: bold;
+  color: #ff1493;
+  z-index: 50;
+}
+
+@keyframes jump {
+  0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
+  50% { transform: translate(-50%, -150%) scale(3); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
+}
+
+@keyframes rainbow {
+  0% {
+    background-position: 0% 50%;
   }
 
-  .child {
-    position: absolute;  
-    pointer-events: none;
+  50% {
+    background-position: 100% 50%;
   }
 
-  @keyframes shake {
-    0%, 100% { transform: translateX(0); }   
-    20% { transform: translateX(-15px); }
-    40% { transform: translateX(0); }
-    60% { transform: translateX(15px); }
-    80% { transform: translateX(0); }
+  100% {
+    background-position: 0% 50%;
   }
-
-  .shake {
-    animation: shake 0.05s ease-in-out infinite;
-  }
-
-  .background-red {
-    background-color: red;
-  }
-
-  #shira {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0);
-    font-size: 3rem;
-    font-weight: bold;
-    color: #ff1493;
-    z-index: 50;
-  }
-
-  @keyframes jump {
-    0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
-    50% { transform: translate(-50%, -150%) scale(3); opacity: 1; }
-    100% { transform: translate(-50%, -50%) scale(4); opacity: 0; }
-  }
-
-  @keyframes rainbow {
-    0% {
-      background-position: 0% 50%;
-    }
-
-    50% {
-      background-position: 100% 50%;
-    }
-
-    100% {
-      background-position: 0% 50%;
-    }
-  }
+}
 
 .modal.active {
   display: flex;
