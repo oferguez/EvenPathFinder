@@ -6,7 +6,7 @@
 
 # to do:
 
-* responsive
+* ~~responsive~~
 * ~~choose Odds/even/multiples~~
 * ~~external config / config screen / personaliosation ~~
 * use of CGPT API:
