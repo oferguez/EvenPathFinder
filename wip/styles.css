@@ -7,7 +7,6 @@ body {
   height: 100vh; /* Full viewport height */
   justify-content: center; /* Center horizontally */
   align-items: center; /* Center vertically */
-  overflow: hidden;
 }
 
 .game-container {
@@ -17,6 +16,13 @@ body {
   align-items: center;
   height: auto;
   width: auto;
+
+  /* tweaks for Safari compatibility */
+  min-height: 0;
+  flex-shrink: 0;
+  transform: translateZ(0);
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-transform: translateZ(0);
 }
 
 #game-board {
@@ -139,20 +145,6 @@ input, button
   animation: shake 0.05s ease-in-out infinite;
 }
 
-.background-red {
-  background-color: red;
-}
-
-#shira {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%) scale(0);
-  font-size: 3rem;
-  font-weight: bold;
-  color: #ff1493;
-  z-index: 50;
-}
 
 @keyframes jump {
   0% { transform: translate(-50%, -50%) scale(0); opacity: 0; }
