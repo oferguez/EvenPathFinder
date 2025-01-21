@@ -16,6 +16,13 @@ body {
   align-items: center;
   height: auto;
   width: auto;
+
+  /* tweaks for Safari compatibility */
+  min-height: 0;
+  flex-shrink: 0;
+  transform: translateZ(0);
+  /* stylelint-disable-next-line property-no-vendor-prefix */
+  -webkit-transform: translateZ(0);
 }
 
 #game-board {
