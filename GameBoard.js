@@ -1,5 +1,6 @@
 import FireWorkExtravaganza from './FireworkExtravaganza.js';
 import { loadPreferences } from './settings.js';
+import { getCongratulationMessage } from './CongratulationService.js';                                            
 
 class Game {
   constructor() {
@@ -320,27 +321,11 @@ class Game {
   
   congratEffect(message = null, msLen = null) {
     const congrats = document.getElementById('congratulation-message');
-    congrats.textContent = message || this.getRandomCongratulation();
+    congrats.textContent = message || getCongratulationMessage();
     const animation = congrats.getAnimations()[0];
     animation.cancel();
     animation.play();
   }
-  
-  getRandomCongratulation() {
-    const congratulations = [
-      `Great job, ${this.name}!`,
-      `Well done, ${this.name}!`,
-      `Awesome work, ${this.name}`,
-      `You nailed it, ${this.name}`,
-      `Bravo, ${this.name}!`,
-      `Fantastic, ${this.name}!`,
-      `Keep it up, ${this.name}!`,
-      `Amazing effort, ${this.name}!`,
-      `Way to go, ${this.name}!`,
-      `Impressive, ${this.name}!`
-    ];
-    return congratulations[Math.floor(Math.random() * congratulations.length)];
-  } 
 
 }
 
