@@ -1,6 +1,6 @@
 import FireWorkExtravaganza from './FireworkExtravaganza.js';
 import { loadPreferences } from './settings.js';
-import { getCongratulationMessage } from './CongratulationService.js';                                            
+import { getCongratulationMessage } from './congratulationService.js';                                            
 
 class Game {
   constructor() {
