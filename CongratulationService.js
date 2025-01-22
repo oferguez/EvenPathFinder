@@ -2,33 +2,38 @@ import { loadPreferences } from './settings.js';
 
 let CongratulationMessages = [];
 let fallBackCongratulations = [
-  'Great job, _childName_!',
-  'Well done, _childName_!',
-  'Awesome work, _childName_',
-  'You nailed it, _childName_',
-  'Bravo, _childName_!',
-  'Fantastic, _childName_!',
-  'Keep it up, _childName_!',
-  'Amazing effort, _childName_!',
-  'Way to go, _childName_!',
-  'Impressive, _childName_!'
+  'Great job, <ChildNamePlaceHolder>!',
+  'Well done, <ChildNamePlaceHolder>!',
+  'Awesome work, <ChildNamePlaceHolder>',
+  'You nailed it, <ChildNamePlaceHolder>',
+  'Bravo, <ChildNamePlaceHolder>!',
+  'Fantastic, <ChildNamePlaceHolder>!',
+  'Keep it up, <ChildNamePlaceHolder>!',
+  'Amazing effort, <ChildNamePlaceHolder>!',
+  'Way to go, <ChildNamePlaceHolder>!',
+  'Impressive, <ChildNamePlaceHolder>!'
 ];
 
 export function getCongratulationMessage() {
-  if (CongratulationMessages.length === 0) {
+  const preferences = loadPreferences();
+  const childName = preferences.name;
+  let message = '';
+  if (CongratulationMessages.length > 0) {
+    message = CongratulationMessages.shift();
+  }
+  else {
     console.info('Fetching congratulation messages');
     try {
-      getCongratulationMessages();
+      loadAiCongratulationMessages();
+      message = CongratulationMessages.shift();
     } 
     catch (error) {
       console.error('Error fetching congratulation messages:', error);
       message = fallBackCongratulations[Math.floor(Math.random() * fallBackCongratulations.length)];
-      message.replace('_childName_', childName);
-      return message;
     }
   }
-  const message = CongratulationMessages.shift();
-  return message;
+
+  return message.replace('<ChildNamePlaceHolder>', childName);
 }
 
 function parseResponseString(responseString) {
@@ -48,19 +53,19 @@ function parseResponseString(responseString) {
   }
 }
 
-function getCongratulationMessages() {
+function loadAiCongratulationMessages() {
 
   const preferences = loadPreferences();
-  const childName = preferences.name;
   const apiKey =  preferences.apiKey;
   const apiUrl = 'https://api.openai.com/v1/chat/completions';
   const prompt = 
-        `Create 10 warm and funny congratulation messages for a child named ${childName}. 
-         Try to keep them short, between 3 to 5-7 words each.
-         Make them suitable for kids and full of joy.
-         Have the list in choices[0].message.content be a json list that can be easily extracted by code.
-         For example:  ... message:["congratulation1", "congratulation2", ... , "congratulation10"]`;
-
+          `Create 10 warm and funny congratulation messages for a child. 
+          Please use the string "<ChildNamePlaceHolder>" as a place holder for the child's name. 
+          Try to keep them short, between 3 to 5-7 words each.
+          Make them suitable for kids and full of joy.
+          Have the list in the response's choices[0].message.content be a json list that can be easily extracted by code.
+          Do not append anything to that list, so that choices[0].message.content can be parsed as a json list.
+          For example:  ["congratulation1", "congratulation2", ... , "congratulation10"]`;
   fetch(apiUrl, {
     method: 'POST',
     headers: {
@@ -82,7 +87,8 @@ function getCongratulationMessages() {
     .then(data => {
       // Parse the response
       const respMessages = data.choices[0].message.content;
-      const messages = parseResponseString(respMessages);
+      const greetingMessages = parseResponseString(respMessages);
+      const messages = greetingMessages.content;
       console.log('Fetched Congratulation Messages:\n', messages);
       CongratulationMessages = messages;
     })
@@ -91,4 +97,4 @@ function getCongratulationMessages() {
     });
 }
 
-getCongratulationMessages('Shira');
+loadAiCongratulationMessages();
