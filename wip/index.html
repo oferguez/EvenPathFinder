@@ -7,6 +7,7 @@
   <title>Shira's Numbers Puzzle</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="rainbow.css">
+  <link rel="icon" type="image/x-icon" href="/unicon.ico">
 </head>
 
 <body>
@@ -33,9 +34,7 @@
       <button id="reset-game">Reset Game</button>
       <button id="settings-button">Settings</button>
     </div>
-
   </div>
-
   
   <script type="module" src="GameBoard.js"></script>
   <dialog id="settings-dialog" class="dialog">
@@ -62,7 +61,7 @@
           </div>
           <div class="form-group">
               <label for="api-key">API Key:</label>
-              <input type="text" id="api-key" />
+              <input type="password" id="api-key" title="Enter your OpenAI key here. It must support gpt-4o-mini." />
           </div>
           <div class="modal-footer">
               <button type="button" id="save-settings" class="modal-button">Save</button>
@@ -100,8 +99,6 @@
     <button id="close-about-dialog">Close</button>
   </div>
 </dialog>
-
-<script type="module" src="settings.js"></script>
 
 </body>
 

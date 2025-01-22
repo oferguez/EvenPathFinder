@@ -63,7 +63,6 @@ body {
   box-sizing: border-box;
 }
 
-
 .cell.highlight-current {
   background-color: #FF1493;
   cursor: not-allowed;

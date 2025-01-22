@@ -9,9 +9,7 @@
 * ~~responsive~~
 * ~~choose Odds/even/multiples~~
 * ~~external config / config screen / personaliosation ~~
-* use of CGPT API:
-  - on startup load list of congrats and hamster jokes
-  - inline get jokes and congrats
+* ~~use of CGPT API: on startup load list of congrats~~
 * ~~lint and reformat with proper tool~~
 * ~~lint and reformat with proper tool~~
 * ~~fix last square issue~~
