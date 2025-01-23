@@ -24,7 +24,7 @@ export function getCongratulationMessage() {
   else {
     console.info('Fetching congratulation messages');
     try {
-      loadAiCongratulationMessages();
+      loadAiCongratulationMessages(preferences);
       message = CongratulationMessages.shift();
     } 
     catch (error) {
@@ -53,9 +53,14 @@ function parseResponseString(responseString) {
   }
 }
 
-function loadAiCongratulationMessages() {
+function loadAiCongratulationMessages(preferences) {
 
-  const preferences = loadPreferences();
+  if (!preferences?.apiKey || preferences.apiKey.length <= 10) {
+
+    console.error('API Key is missing or invalid');
+    throw new Error('API Key is missing or invalid');
+  }
+
   const apiKey =  preferences.apiKey;
   const apiUrl = 'https://api.openai.com/v1/chat/completions';
   const prompt = 
@@ -97,4 +102,8 @@ function loadAiCongratulationMessages() {
     });
 }
 
-loadAiCongratulationMessages();
+try {
+  loadAiCongratulationMessages(loadPreferences());
+} catch (error) {
+  console.error('Can not load AI congratulation messages:', error);
+}

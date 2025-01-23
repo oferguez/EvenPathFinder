@@ -27,7 +27,7 @@ function getDefaultPreferences() {
     name: 'Shira',
     boardSize: 5,
     numberType: 'Evens',
-    apiKey: '...'
+    apiKey: ''
   };
 }
 
