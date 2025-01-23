@@ -1,0 +1,49 @@
+.rainbow-dance-background {
+    position: absolute;
+    width: 30vw;            /* 25% of viewport width */
+    height: 30vw;           /* Same as width to ensure it's a square */
+    top: 20vh;
+    left: 50vw; 
+    transform: translateX(-50%);
+    background: radial-gradient(
+      circle,
+      rgb(255 0 0 / 30%) 0%,
+      rgb(255 0 0 / 30%) 7%,
+      rgb(255 165 0 / 30%) 7%,
+      rgb(255 165 0 / 30%) 14%,
+      rgb(255 255 0 / 30%) 14%,
+      rgb(255 255 0 / 30%) 21%,
+      rgb(0 255 0 / 30%) 21%,
+      rgb(0 255 0 / 30%) 28%,
+      rgb(0 0 255 / 30%) 35%,
+      rgb(0 0 255 / 30%) 35%,
+      rgb(75 0 130 / 30%) 42%,
+      rgb(75 0 130 / 30%) 42%,
+      rgb(238 130 238 / 30%) 49%,
+      rgb(238 130 238 / 0%) 49%
+    );
+    animation: dance 1.5s infinite ease-in-out;
+  }  
+ 
+  @keyframes dance {
+    0% {
+      transform: translate(-70%, -20%) scale(1) rotate(0deg); /* Start */
+    }
+  
+    25% {
+      transform: translate(-30%, -20%) scale(2) rotate(0deg); /* Move down and rotate */
+    }
+  
+    50% {
+      transform: translate(-30%, 20%) scale(3) rotate(0deg); /* Move right and rotate */
+    }
+  
+    75% {
+      transform: translate(-70%, 20%) scale(2) rotate(0deg); /* Move up */
+    }
+  
+    100% {
+      transform: translate(-70%, -20%) scale(1) rotate(0deg); /* Back to start */
+    }
+  }
+  
