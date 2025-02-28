@@ -50,6 +50,7 @@ const buildDate = document.getElementById('build-date');
 // Form elements
 const nameInput = document.getElementById('name');
 const boardSizeInput = document.getElementById('board-size');
+boardSizeInput = min(max(boardSizeInput, 5), 10));
 const numberTypeInput = document.getElementById('number-type');
 const apiKeyInput = document.getElementById('api-key');
 let versionInfo = {};
