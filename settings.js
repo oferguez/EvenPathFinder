@@ -50,7 +50,6 @@ const buildDate = document.getElementById('build-date');
 // Form elements
 const nameInput = document.getElementById('name');
 const boardSizeInput = document.getElementById('board-size');
-boardSizeInput = Math.min(Math.max(boardSizeInput, 5), 10);
 const numberTypeInput = document.getElementById('number-type');
 const apiKeyInput = document.getElementById('api-key');
 let versionInfo = {};
@@ -76,7 +75,7 @@ settingsButton.addEventListener('click', () => {
 
   // Populate the form with current preferences
   nameInput.value = preferences.name;
-  boardSizeInput.value = preferences.boardSize;
+  boardSizeInput.value = Math.min(Math.max(preferences.boardSize, 5), 10);
   numberTypeInput.value = preferences.numberType;
   apiKeyInput.value = preferences.apiKey;
 
