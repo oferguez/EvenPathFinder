@@ -9,7 +9,15 @@ export function loadPreferences(username = null) {
   }
   const configKey = getUserConfigKey(username);
   const preferences = localStorage.getItem(configKey);
-  return preferences ? JSON.parse(preferences) : getDefaultPreferences();
+
+  let prefs = null;
+  if (preferences) {
+    prefs = JSON.parse(preferences);
+    if (prefs.boardSize > 12) {
+      prefs.boardSize = 12;
+    }
+  }
+  return prefs ? prefs : getDefaultPreferences();
 }
 
 function savePreferences(username, preferences) {
