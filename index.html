@@ -13,7 +13,7 @@
 
   <h1>Math Adventure Game</h1>
 
-  <div id="win-effect"></div> 
+  <div id="win-effect"></div>
 
   <div id="controls">
     <label id="greet-player">(PlayerName)</label>
@@ -34,74 +34,79 @@
       <button id="settings-button">Settings</button>
     </div>
   </div>
-  
+
   <script type="module" src="GameBoard.js"></script>
   <dialog id="settings-dialog" class="dialog">
-      <div class="modal-header">
-          <h2>Settings</h2>
+    <div class="modal-header">
+      <h2>Settings</h2>
+    </div>
+    <form id="settings-form">
+      <div class="form-group">
+        <label for="name">Name:</label>
+        <input type="text" id="name" />
       </div>
-      <form id="settings-form">
-          <div class="form-group">
-              <label for="name">Name:</label>
-              <input type="text" id="name" />
-          </div>
-          <div class="form-group">
-              <label for="board-size">Board Size:</label>
-              <input type="number" id="board-size" min="4" max="12" value="6" />
-          </div>
-          <div class="form-group">
-              <label for="number-type">Number Type:</label>
-              <select id="number-type">
-                  <option value="Evens">Evens</option>
-                  <option value="Odds">Odds</option>
-                  <option value="Threepls">Multiples of 3</option>
-                  <option value="Fifths">Multiples of 5</option>
-              </select>
-          </div>
-          <div class="form-group">
-              <label for="api-key">API Key:</label>
-              <input type="text" id="api-key" />
-          </div>
-          <div class="modal-footer">
-              <button type="button" id="save-settings" class="modal-button">Save</button>
-              <button type="button" id="about-settings" class="modal-button">About</button>
-              <button type="button" id="cancel-settings" class="modal-button">Cancel</button>
-          </div>
-      </form>
-</dialog>
+      <div class="form-group">
+        <label for="board-size">Board Size:</label>
+        <input type="number" id="board-size" min="4" max="12" value="6" , 
+            onblur="if(parseInt(this.value) > parseInt(this.max))  {
+                      this.value = this.max; 
+                    } else if(parseInt(this.value) < parseInt(this.min)) {
+                      this.value = this.min;              
+                    }" />
+      </div>
+      <div class=" form-group">
+        <label for="number-type">Number Type:</label>
+        <select id="number-type">
+          <option value="Evens">Evens</option>
+          <option value="Odds">Odds</option>
+          <option value="Threepls">Multiples of 3</option>
+          <option value="Fifths">Multiples of 5</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label for="api-key">API Key:</label>
+        <input type="text" id="api-key" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" id="save-settings" class="modal-button">Save</button>
+        <button type="button" id="about-settings" class="modal-button">About</button>
+        <button type="button" id="cancel-settings" class="modal-button">Cancel</button>
+      </div>
+    </form>
+  </dialog>
 
-<dialog id="about-dialog" class="about-dialog">
-  <div class="about-container">
-    <header class="about-header">
-      <h2>About Path Finder</h2>
-    </header>
-    <main class="about-content">
-      <p>
-        Welcome to the Path Finder Game!
-      </p>
-      <p>
-        Your mission is to help find a path from the top-left corner to the bottom-right corner. Each step has to be of the right number type!
-      </p>
-    </main>
-    <footer class="about-footer">
-      <div>
-        <p>Game created by: <strong>Ofer Guez</strong></p>
-        <p>Contact: <a href="mailto:guez.ofer@gmail.com">guez.ofer@gmail.com</a></p>
-      </div>
-      <div>
-        <p id="build-info"><strong>Build Info:</strong></p>
-        <p id="commit">Commit Hash</p>
-        <p id="branch">Branch</p>
-        <p id="build-date">Build Date</p>
-      </div>
-    </footer>
-    <button id="close-about-dialog">Close</button>
-  </div>
-</dialog>
+  <dialog id="about-dialog" class="about-dialog">
+    <div class="about-container">
+      <header class="about-header">
+        <h2>About Path Finder</h2>
+      </header>
+      <main class="about-content">
+        <p>
+          Welcome to the Path Finder Game!
+        </p>
+        <p>
+          Your mission is to help find a path from the top-left corner to the bottom-right corner. Each step has to be
+          of the right number type!
+        </p>
+      </main>
+      <footer class="about-footer">
+        <div>
+          <p>Game created by: <strong>Ofer Guez</strong></p>
+          <p>Contact: <a href="mailto:guez.ofer@gmail.com">guez.ofer@gmail.com</a></p>
+        </div>
+        <div>
+          <p id="build-info"><strong>Build Info:</strong></p>
+          <p id="commit">Commit Hash</p>
+          <p id="branch">Branch</p>
+          <p id="build-date">Build Date</p>
+        </div>
+      </footer>
+      <button id="close-about-dialog">Close</button>
+    </div>
+  </dialog>
 
-<script type="module" src="settings.js"></script>
+  <script type="module" src="settings.js"></script>
 
 </body>
 
 </html>
-
